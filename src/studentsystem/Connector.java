@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author Zozo
  */
-public class connector {
+public class Connector {
     public static void main(String[] args) {
         ConnectDb();
     }
