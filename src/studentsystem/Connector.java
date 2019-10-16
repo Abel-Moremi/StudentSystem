@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package studentsystem;
 
 import java.sql.Connection;
@@ -12,13 +13,9 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Zozo
+ * @author 201503625
  */
 public class Connector {
-    public static void main(String[] args) {
-        ConnectDb();
-    }
-
     public static Connection ConnectDb() {
         Connection connection = null;
         try {

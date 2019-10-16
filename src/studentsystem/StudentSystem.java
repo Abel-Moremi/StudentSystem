@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package studentsystem;
+import java.sql.Connection;
 
 /**
  *
  * @author Zozo
  */
 public class StudentSystem {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-       
+        Connection conn = Connector.ConnectDb();
     }
     
 }
