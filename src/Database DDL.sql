@@ -125,22 +125,22 @@ VALUES ('CSI323', 'Algorithms', 'CSI247');
 
 -- Student
 INSERT INTO am_Student
-VALUES (201503625, 'Abel Moremi', 'Undergraduate');
+VALUES (201503625, 'Abel' ,'Moremi', 'Undergraduate');
 
 INSERT INTO am_Student
-VALUES (201603665, 'Dell Keyboard', 'Undergraduate');
+VALUES (201603665, 'Dell' ,'Keyboard', 'Undergraduate');
 
 INSERT INTO am_Student
-VALUES (200602627, 'Donald Trump', 'Undergraduate');
+VALUES (200602627, 'Donald' ,'Trump', 'Undergraduate');
 
 INSERT INTO am_Student
-VALUES (201903225, 'Dave Chappell', 'PostGraduate');
+VALUES (201903225, 'Dave', 'Chappell', 'PostGraduate');
 
 INSERT INTO am_Student
-VALUES (201003605, 'Steve Jobs', 'PostGraduate');
+VALUES (201003605, 'Steve', 'Jobs', 'PostGraduate');
 
 INSERT INTO am_Student
-VALUES (200402447, 'Trevor Noah', 'Undergraduate');
+VALUES (200402447, 'Trevor', 'Noah', 'Undergraduate');
 
 -- Lecture
 INSERT INTO am_Lecture
@@ -191,5 +191,15 @@ VALUES (201503625, 'CSI262', 'Final Mark', 70);
 INSERT INTO am_Assessment
 VALUES (201503625, 'CSI323', 'Final Mark', 60);
 
+-- Deleting all the tables
+-- For Database Cleaning efforts
 
-
+DROP TABLE am_Assessment CASCADE CONSTRAINTS;
+DROP TABLE am_ModuleRegistration CASCADE CONSTRAINTS;
+DROP TABLE am_Delivers CASCADE CONSTRAINTS;
+DROP TABLE am_CourseRegistration CASCADE CONSTRAINTS;
+DROP TABLE am_Lecture CASCADE CONSTRAINTS;
+DROP TABLE am_Student CASCADE CONSTRAINTS;
+DROP TABLE am_Module CASCADE CONSTRAINTS;
+DROP TABLE am_Course CASCADE CONSTRAINTS;
+DROP TABLE am_University CASCADE CONSTRAINTS;
