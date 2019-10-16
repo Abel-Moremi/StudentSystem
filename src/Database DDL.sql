@@ -8,106 +8,187 @@
  * Created: Oct 10, 2019
  */
 
-CREATE TABLE oak_Hotel (
-    ht_no int NOT NULL,
-	ht_name varchar(25),
-	ht_city varchar(25),
+-- Creation and Definition of all needed tables
+-- Constraints "Primary and FOREIGN Key" definitions are made as tables are defined
+-- Name spacing used to show associations clearly 
+
+CREATE TABLE am_University (
+    uni_no int NOT NULL,
+	uni_name varchar(25),
+	uni_city varchar(25),
 	
-	CONSTRAINTS PK_hotel PRIMARY KEY(ht_no)
+	CONSTRAINTS PK_University PRIMARY KEY(uni_no)
 );
 
-CREATE TABLE oak_Guest (
-    gt_no int NOT NULL,
-	gt_name varchar(25),
-	gt_address varchar(25),
+CREATE TABLE am_Course (
+	crs_id varchar(6) NOT NULL,
+	crs_name varchar(25),
 	
-	CONSTRAINTS PK_guest PRIMARY KEY(gt_no)
+	CONSTRAINTS PK_Course PRIMARY KEY(crs_id)
 );
 
-CREATE TABLE oak_Room (
-    rm_no int NOT NULL UNIQUE, 
-	htrm_no int NOT NULL,
-	rm_type varchar(25),
-	rm_price NUMERIC(6, 2),
+CREATE TABLE am_Module (
+	mod_id varchar(6) NOT NULL,
+	mod_name varchar(25),
+	mod_pre varchar(6),
 	
-	CONSTRAINTS PK_room PRIMARY KEY (rm_no, htrm_no),
-	CONSTRAINTS FK_guest FOREIGN KEY (htrm_no) REFERENCES oak_Hotel(ht_no)
+	CONSTRAINTS PK_Module PRIMARY KEY(mod_id)
 );
 
-ALTER TABLE oak_Room
-ADD CONSTRAINT CHK_Oak_room CHECK ((rm_type='Single' OR rm_type='Double' OR rm_type='Family') AND (rm_price>=100 AND rm_price<=1000) AND (rm_no>=1 AND rm_no<=100));
-
-CREATE TABLE oak_Booking (
-    htbk_no int NOT NULL,
-	gtbk_no int NOT NULL,
-	bk_dateFrom date NOT NULL,
-	bk_dateto date,
-	rmbk_no int,
+CREATE TABLE am_Student (
+	stu_id int NOT NULL,
+	stu_name varchar(25),
+	stu_type varchar(25),
 	
-	CONSTRAINTS PK_booking PRIMARY KEY (htbk_no, gtbk_no, bk_dateFrom),
-	CONSTRAINTS FK_booking_htno FOREIGN KEY (htbk_no) REFERENCES oak_Hotel(ht_no),
-	CONSTRAINTS FK_booking_gtno FOREIGN KEY (gtbk_no) REFERENCES oak_Guest(gt_no),
-	CONSTRAINTS FK_booking_rmno FOREIGN KEY (rmbk_no) REFERENCES oak_Room(rm_no)
+	CONSTRAINTS PK_Student PRIMARY KEY(stu_id)
 );
 
-CREATE OR REPLACE TRIGGER trg_check_dates
-  BEFORE INSERT OR UPDATE ON oak_Booking
-  FOR EACH ROW
-BEGIN
-  IF( :new.bk_dateFrom < SYSDATE )
-  THEN
-    RAISE_APPLICATION_ERROR( -20001, 
-          'Invalid DA=ateFrom: CloseDate must be greater than the current date - value = ' || 
-          to_date( :new.bk_dateFrom, 'yyyy-mm-dd' ) );
-  END IF;
-  IF( :new.bk_dateto <= SYSDATE )
-  THEN
-    RAISE_APPLICATION_ERROR( -20001, 
-          'Invalid DA=ateFrom: CloseDate must be greater than the current date - value = ' || 
-          to_date( :new.bk_dateto, 'yyyy-mm-dd' ) );
-  END IF;
-END;
+CREATE TABLE am_Lecture (
+	lec_id int NOT NULL,
+	lec_name varchar(25),
+	
+	CONSTRAINTS PK_Lecture PRIMARY KEY(lec_id)
+);
 
--- Data Entry 
--- ***** Hotel Table *****
+CREATE TABLE am_Assessment (
+	ass_stu_id int NOT NULL,
+	ass_mod_id varchar(6) NOT NULL,
+	ass_name varchar(25),
+	ass_mak int,
+	
+	CONSTRAINTS PK_Assesment PRIMARY KEY(ass_stu_id, ass_mod_id),
+	CONSTRAINTS FK_Ass_Student_id FOREIGN KEY (ass_stu_id) REFERENCES am_Student(stu_id),
+	CONSTRAINTS FK_Ass_Module_id FOREIGN KEY (ass_mod_id) REFERENCES am_Module(mod_id)
+);
 
-INSERT INTO oak_Hotel
-VALUES (1234, 'Oak Tree', 'Gaborone');
+CREATE TABLE am_ModuleRegistration (
+	mrg_semester varchar(25) NOT NULL,
+	mrg_stu_id int NOT NULL,
+	mrg_mod_id varchar(6) NOT NULL,
+	
+	CONSTRAINTS PK_ModuleRegistration PRIMARY KEY(mrg_semester, mrg_stu_id, mrg_mod_id),
+	CONSTRAINTS FK_Mrg_Student_id FOREIGN KEY (mrg_stu_id) REFERENCES am_Student(stu_id),
+	CONSTRAINTS FK_Mrg_Module_id FOREIGN KEY (mrg_mod_id) REFERENCES am_Module(mod_id)
+);
 
--- ***** Hotel Guest *****
+CREATE TABLE am_CourseRegistration(
+	crg_year int NOT NULL,
+	crg_crs_id varchar(6) NOT NULL,
+	crg_stu_id int NOT NULL,
+	
+	CONSTRAINTS PK_CourseRegistration PRIMARY KEY(crg_year, crg_crs_id, crg_stu_id),
+	CONSTRAINTS FK_Crg_Student_id FOREIGN KEY (crg_stu_id) REFERENCES am_Student(stu_id),
+	CONSTRAINTS FK_Crg_Course_id FOREIGN KEY (crg_crs_id) REFERENCES am_Course(crs_id)
+);
 
-INSERT INTO oak_Guest
-VALUES (1001, 'Shellock Holmes', '22 Bakers Street');
+CREATE TABLE am_Delivers (
+	dev_semester varchar(25) NOT NULL,
+	dev_lec_id int NOT NULL,
+	dev_mod_id varchar(6) NOT NULL,
+	
+	CONSTRAINTS PK_Delivers PRIMARY KEY(dev_semester, dev_lec_id, dev_mod_id),
+	CONSTRAINTS FK_Dev_Lec_id FOREIGN KEY (dev_lec_id) REFERENCES am_Lecture(lec_id),
+	CONSTRAINTS FK_Dev_Mod_id FOREIGN KEY (dev_mod_id) REFERENCES am_Module(mod_id)
+);
 
-INSERT INTO oak_Guest
-VALUES (1002, 'Donald Trump', 'Twitter Streets');
-
-INSERT INTO oak_Guest
-VALUES (1003, 'Iceberg Slim', 'These Streets');
-
-INSERT INTO oak_Guest
-VALUES (1004, 'Denise The Menace', '301 Childhood lane');
-
--- ****** Hotel Room ******
-
-INSERT INTO oak_Room
-VALUES (1, 1234, 'Single', 100.00);
-
-INSERT INTO oak_Room
-VALUES (2, 1234, 'Double', 200.00);
-
-INSERT INTO oak_Room
-VALUES (3, 1234, 'Family', 300.00);
-
--- ***** Hotel Booking ******
-
-INSERT INTO oak_Booking
-VALUES (1234, 1001, '2019-10-10', '2019-10-12', 1);
-
-INSERT INTO oak_Booking
-VALUES (1234, 1002, '2019-10-10', '2019-10-12', 2);
+-- The following are Data insertions into the tables to form dummy data.
+-- Data Entry
 
 
--- Extra Sauce i need to cover
-ALTER SESSION SET NLS_DATE_FORMAT = 'yyyy-mm-dd';
+-- University
+INSERT INTO am_University
+VALUES (1, 'Abel Moremi University', 'Gaborone');
+
+-- Course
+INSERT INTO am_Course
+VALUES ('BSC208', 'Computing with Finance');
+
+INSERT INTO am_Course
+VALUES ('BSC230', 'Computer Science');
+
+INSERT INTO am_Course
+VALUES ('BSC204', 'Infomation Technology');
+
+-- Module
+INSERT INTO am_Module
+VALUES ('CSI141', 'Intro to programming', 'N/A');
+
+INSERT INTO am_Module
+VALUES ('CSI247', 'Data Structures', 'CSI142');
+
+INSERT INTO am_Module
+VALUES ('CSI262', 'Database I', 'CSI247');
+
+INSERT INTO am_Module
+VALUES ('CSI323', 'Algorithms', 'CSI247');
+
+-- Student
+INSERT INTO am_Student
+VALUES (201503625, 'Abel Moremi', 'Undergraduate');
+
+INSERT INTO am_Student
+VALUES (201603665, 'Dell Keyboard', 'Undergraduate');
+
+INSERT INTO am_Student
+VALUES (200602627, 'Donald Trump', 'Undergraduate');
+
+INSERT INTO am_Student
+VALUES (201903225, 'Dave Chappell', 'PostGraduate');
+
+INSERT INTO am_Student
+VALUES (201003605, 'Steve Jobs', 'PostGraduate');
+
+INSERT INTO am_Student
+VALUES (200402447, 'Trevor Noah', 'Undergraduate');
+
+-- Lecture
+INSERT INTO am_Lecture
+VALUES (201203625, 'Dr Zell Moremi');
+
+INSERT INTO am_Lecture
+VALUES (200203265, 'Mrs Sure Majozy');
+
+INSERT INTO am_Lecture
+VALUES (200304627, 'Leanardo Davinci');
+
+
+-- Course Registration
+INSERT INTO am_CourseRegistration
+VALUES (2015, 'BSC208', 201503625);
+
+INSERT INTO am_CourseRegistration
+VALUES (2015, 'BSC230', 201603665);
+
+-- Delivers 
+INSERT INTO am_Delivers
+VALUES ('Semester 1', 201203625, 'CSI141');
+
+INSERT INTO am_Delivers
+VALUES ('Semester 1', 200203265, 'CSI247');
+
+-- Module Registration
+INSERT INTO am_ModuleRegistration
+VALUES ('Semester 1', 201503625, 'CSI141');
+
+INSERT INTO am_ModuleRegistration
+VALUES ('Semester 1', 201503625, 'CSI247');
+
+INSERT INTO am_ModuleRegistration
+VALUES ('Semester 1', 201503625, 'CSI323');
+
+
+-- Assessment
+INSERT INTO am_Assessment
+VALUES (201503625, 'CSI141', 'Final Mark', 90);
+
+INSERT INTO am_Assessment
+VALUES (201503625, 'CSI247', 'Final Mark', 80);
+
+INSERT INTO am_Assessment
+VALUES (201503625, 'CSI262', 'Final Mark', 70);
+
+INSERT INTO am_Assessment
+VALUES (201503625, 'CSI323', 'Final Mark', 60);
+
+
 
