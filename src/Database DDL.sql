@@ -38,6 +38,7 @@ CREATE TABLE am_Module (
 CREATE TABLE am_Student (
 	stu_id int NOT NULL,
 	stu_name varchar(25),
+        stu_surname varchar(25),
 	stu_type varchar(25),
 	
 	CONSTRAINTS PK_Student PRIMARY KEY(stu_id)
