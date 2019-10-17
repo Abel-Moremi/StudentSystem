@@ -6,17 +6,24 @@
 
 package studentsystem;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+
 /**
  *
  * @author 201503625
  */
 public class Home extends javax.swing.JFrame {
-
+    Connection conn;
     /**
      * Creates new form Home
      */
     public Home() {
         initComponents();
+        conn = Connector.ConnectDb();
     }
 
     /**
@@ -28,29 +35,135 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        stu_id = new javax.swing.JTextField();
+        stu_name = new javax.swing.JTextField();
+        stu_surname = new javax.swing.JTextField();
+        stu_type = new javax.swing.JTextField();
+        stu_register = new javax.swing.JButton();
+        id_label = new javax.swing.JLabel();
+        name_label = new javax.swing.JLabel();
+        surname_label = new javax.swing.JLabel();
+        type_label = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        stu_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stu_idActionPerformed(evt);
+            }
+        });
+
+        stu_type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stu_typeActionPerformed(evt);
+            }
+        });
+
+        stu_register.setText("Register");
+        stu_register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stu_registerActionPerformed(evt);
+            }
+        });
+
+        id_label.setText("ID");
+
+        name_label.setText("Name");
+
+        surname_label.setText("Surname");
+
+        type_label.setText("Type");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(501, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(name_label)
+                                .addComponent(surname_label, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(type_label)
+                            .addComponent(id_label))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(stu_id, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(stu_name, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(stu_surname, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(stu_type, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(stu_register)))
+                .addContainerGap(540, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(193, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stu_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(id_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stu_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(name_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stu_surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(surname_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(stu_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(type_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(stu_register)
+                .addContainerGap(266, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void stu_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stu_idActionPerformed
+
+    private void stu_registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_registerActionPerformed
+        // TODO add your handling code here:
+        
+        int id = Integer.parseInt(stu_id.getText());
+        String name = stu_name.getText();
+        String surname = stu_surname.getText();
+        String type = stu_type.getText();
+        
+        String query = "INSERT INTO am_Student \n " +
+                              "VALUES (?, ?, ?, ?);";
+        
+        try{
+            PreparedStatement pre_smt = conn.prepareStatement(query);
+            
+            pre_smt.setInt(1, id);
+            pre_smt.setString(2, name);
+            pre_smt.setString(3, surname);
+            pre_smt.setString(4, type);
+            
+            ResultSet result = pre_smt.executeQuery();
+            
+            System.out.println(result);
+            pre_smt.close();
+            conn.close();
+            
+        }catch(SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_stu_registerActionPerformed
+
+    private void stu_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_typeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_stu_typeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,6 +201,14 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel id_label;
+    private javax.swing.JLabel name_label;
+    private javax.swing.JTextField stu_id;
+    private javax.swing.JTextField stu_name;
+    private javax.swing.JButton stu_register;
+    private javax.swing.JTextField stu_surname;
+    private javax.swing.JTextField stu_type;
+    private javax.swing.JLabel surname_label;
+    private javax.swing.JLabel type_label;
     // End of variables declaration//GEN-END:variables
 }

@@ -21,11 +21,11 @@ public class StudentSystem {
      */
     public static void main(String[] args) throws SQLException {
         // TODO code application logic here
-        Connection conn = Connector.ConnectDb();
-        ResultSet me = getStudentList(conn);
+        //Connection conn = Connector.ConnectDb();
+        //ResultSet me = getStudentList(conn);
     }
     
-    public static ResultSet getStudentList(Connection conn) throws SQLException{
+    /*public static ResultSet getStudentList(Connection conn) throws SQLException{
         
         String listStudents = "SELECT * FROM am_Student";
         Statement stmt = conn.createStatement();
@@ -44,6 +44,6 @@ public class StudentSystem {
         conn.close();
 
         return rs;
-    }
+    }*/
     
 }
