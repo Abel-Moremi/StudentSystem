@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,6 +27,10 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         conn = Connector.ConnectDb();
+        
+        DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
+        model.setRowCount(0);
+        showStudents(studentList());
     }
 
     /**
@@ -44,6 +51,11 @@ public class Home extends javax.swing.JFrame {
         name_label = new javax.swing.JLabel();
         surname_label = new javax.swing.JLabel();
         type_label = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        studentDisplayTable = new javax.swing.JTable();
+        stu_search = new javax.swing.JTextField();
+        stu_searchButton = new javax.swing.JButton();
+        stu_refreshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,53 +86,100 @@ public class Home extends javax.swing.JFrame {
 
         type_label.setText("Type");
 
+        studentDisplayTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "Surmane", "Type"
+            }
+        ));
+        jScrollPane1.setViewportView(studentDisplayTable);
+
+        stu_searchButton.setText("Search");
+        stu_searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stu_searchButtonActionPerformed(evt);
+            }
+        });
+
+        stu_refreshButton.setText("Refresh");
+        stu_refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stu_refreshButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(name_label)
+                        .addComponent(surname_label, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(type_label)
+                    .addComponent(id_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(stu_id, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(stu_name, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(stu_surname, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(stu_type, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(stu_search))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(name_label)
-                                .addComponent(surname_label, javax.swing.GroupLayout.Alignment.TRAILING))
-                            .addComponent(type_label)
-                            .addComponent(id_label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(stu_id, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(stu_name, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(stu_surname, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(stu_type, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(85, 85, 85)
+                        .addComponent(stu_register)
+                        .addGap(204, 204, 204)
+                        .addComponent(stu_refreshButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(stu_register)))
-                .addContainerGap(540, Short.MAX_VALUE))
+                        .addGap(90, 90, 90)
+                        .addComponent(stu_searchButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(stu_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(id_label))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(stu_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(name_label))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(stu_surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(surname_label))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(stu_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(type_label)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(stu_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(id_label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(stu_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(name_label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(stu_surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(surname_label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(stu_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(type_label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(stu_register)
-                .addContainerGap(266, Short.MAX_VALUE))
+                    .addComponent(stu_register)
+                    .addComponent(stu_refreshButton))
+                .addGap(45, 45, 45)
+                .addComponent(stu_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(stu_searchButton)
+                .addContainerGap(202, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,11 +208,16 @@ public class Home extends javax.swing.JFrame {
             pre_smt.setString(3, surname);
             pre_smt.setString(4, type);
             
-            ResultSet result = pre_smt.executeQuery();
+            pre_smt.executeUpdate();
             
-            System.out.println(result);
+            DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
+            model.setRowCount(0);
+            showStudents(studentList());
+            
             pre_smt.close();
             conn.close();
+            
+            JOptionPane.showMessageDialog(null, "Record "+name+" Added", "Update Student: "+ "Success", JOptionPane.INFORMATION_MESSAGE);
             
         }catch(SQLException ex) {
             System.err.println("SQLException: " + ex.getMessage());
@@ -165,6 +229,88 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_stu_typeActionPerformed
 
+    private void stu_searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_searchButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
+        model.setRowCount(0);
+        showStudents(searchList());
+    }//GEN-LAST:event_stu_searchButtonActionPerformed
+
+    private void stu_refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_refreshButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
+        model.setRowCount(0);
+        showStudents(studentList());
+    }//GEN-LAST:event_stu_refreshButtonActionPerformed
+
+    // User defined methods
+    
+    public ArrayList<Student> studentList(){
+        
+        ArrayList<Student> students = new ArrayList<Student>();
+              
+        try {
+            String query = "SELECT * FROM am_student";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            Student tr;
+                
+                while(rs.next()){
+                    tr = new Student(rs.getInt("stu_id"), rs.getString("stu_name"),rs.getString("stu_surname"), rs.getString("stu_type"));
+                    students.add(tr);
+                }
+            
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return students;
+    }
+    
+    public void showStudents(ArrayList li){
+        ArrayList<Student> list = li;
+        DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
+        Object[] row = new Object[4];
+            
+        for(int i = 0; i<list.size(); i++){
+            row[0] = list.get(i).getID();
+            row[1] = list.get(i).getName();
+            row[2] = list.get(i).getSurname();
+            row[3] = list.get(i).getType();
+            model.addRow(row);
+        }
+    }
+    
+    public ArrayList<Student> searchList(){
+        
+        ArrayList<Student> students = new ArrayList<Student>();      
+
+        try {
+            String query = "SELECT * FROM am_student where stu_name = '"+stu_search.getText()+"' OR stu_id ='"+stu_search.getText()+"'";
+            
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            Student tr;
+            Boolean found = false;
+                
+            while(rs.next()){
+                tr = new Student(rs.getInt("stu_id"), rs.getString("stu_name"),rs.getString("stu_surname"), rs.getString("stu_type"));
+                students.add(tr);
+                found = true;
+            }
+                    
+            if(found){
+                JOptionPane.showMessageDialog(null, "Record Found", "Search Student: "+ "Success", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(null, "Record Not Found", "Search Student: "+ "Fail", JOptionPane.INFORMATION_MESSAGE);
+            }
+                
+            
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return students;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -202,12 +348,17 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel id_label;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel name_label;
     private javax.swing.JTextField stu_id;
     private javax.swing.JTextField stu_name;
+    private javax.swing.JButton stu_refreshButton;
     private javax.swing.JButton stu_register;
+    private javax.swing.JTextField stu_search;
+    private javax.swing.JButton stu_searchButton;
     private javax.swing.JTextField stu_surname;
     private javax.swing.JTextField stu_type;
+    private javax.swing.JTable studentDisplayTable;
     private javax.swing.JLabel surname_label;
     private javax.swing.JLabel type_label;
     // End of variables declaration//GEN-END:variables

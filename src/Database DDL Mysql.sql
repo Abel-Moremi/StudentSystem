@@ -9,18 +9,18 @@
  */
 
 CREATE TABLE am_University (
-    uni_no int NOT NULL,
+        uni_no int NOT NULL,
 	uni_name varchar(25),
 	uni_city varchar(25),
 	
-	CONSTRAINTS PK_University PRIMARY KEY(uni_no)
+        PRIMARY KEY(uni_no)
 );
 
 CREATE TABLE am_Course (
 	crs_id varchar(6) NOT NULL,
 	crs_name varchar(25),
 	
-	CONSTRAINTS PK_Course PRIMARY KEY(crs_id)
+	PRIMARY KEY(crs_id)
 );
 
 CREATE TABLE am_Module (
@@ -28,7 +28,7 @@ CREATE TABLE am_Module (
 	mod_name varchar(25),
 	mod_pre varchar(6),
 	
-	CONSTRAINTS PK_Module PRIMARY KEY(mod_id)
+	PRIMARY KEY(mod_id)
 );
 
 CREATE TABLE am_Student (
@@ -37,14 +37,14 @@ CREATE TABLE am_Student (
         stu_surname varchar(25),
 	stu_type varchar(25),
 	
-	CONSTRAINTS PK_Student PRIMARY KEY(stu_id)
+	PRIMARY KEY(stu_id)
 );
 
 CREATE TABLE am_Lecture (
 	lec_id int NOT NULL,
 	lec_name varchar(25),
 	
-	CONSTRAINTS PK_Lecture PRIMARY KEY(lec_id)
+	PRIMARY KEY(lec_id)
 );
 
 CREATE TABLE am_Assessment (
@@ -53,9 +53,9 @@ CREATE TABLE am_Assessment (
 	ass_name varchar(25),
 	ass_mak int,
 	
-	CONSTRAINTS PK_Assesment PRIMARY KEY(ass_stu_id, ass_mod_id),
-	CONSTRAINTS FK_Ass_Student_id FOREIGN KEY (ass_stu_id) REFERENCES am_Student(stu_id),
-	CONSTRAINTS FK_Ass_Module_id FOREIGN KEY (ass_mod_id) REFERENCES am_Module(mod_id)
+	PRIMARY KEY(ass_stu_id, ass_mod_id),
+	FOREIGN KEY (ass_stu_id) REFERENCES am_Student(stu_id),
+	FOREIGN KEY (ass_mod_id) REFERENCES am_Module(mod_id)
 );
 
 CREATE TABLE am_ModuleRegistration (
@@ -63,9 +63,9 @@ CREATE TABLE am_ModuleRegistration (
 	mrg_stu_id int NOT NULL,
 	mrg_mod_id varchar(6) NOT NULL,
 	
-	CONSTRAINTS PK_ModuleRegistration PRIMARY KEY(mrg_semester, mrg_stu_id, mrg_mod_id),
-	CONSTRAINTS FK_Mrg_Student_id FOREIGN KEY (mrg_stu_id) REFERENCES am_Student(stu_id),
-	CONSTRAINTS FK_Mrg_Module_id FOREIGN KEY (mrg_mod_id) REFERENCES am_Module(mod_id)
+	PRIMARY KEY(mrg_semester, mrg_stu_id, mrg_mod_id),
+	FOREIGN KEY (mrg_stu_id) REFERENCES am_Student(stu_id),
+	FOREIGN KEY (mrg_mod_id) REFERENCES am_Module(mod_id)
 );
 
 CREATE TABLE am_CourseRegistration(
@@ -73,9 +73,9 @@ CREATE TABLE am_CourseRegistration(
 	crg_crs_id varchar(6) NOT NULL,
 	crg_stu_id int NOT NULL,
 	
-	CONSTRAINTS PK_CourseRegistration PRIMARY KEY(crg_year, crg_crs_id, crg_stu_id),
-	CONSTRAINTS FK_Crg_Student_id FOREIGN KEY (crg_stu_id) REFERENCES am_Student(stu_id),
-	CONSTRAINTS FK_Crg_Course_id FOREIGN KEY (crg_crs_id) REFERENCES am_Course(crs_id)
+	PRIMARY KEY(crg_year, crg_crs_id, crg_stu_id),
+	FOREIGN KEY (crg_stu_id) REFERENCES am_Student(stu_id),
+	FOREIGN KEY (crg_crs_id) REFERENCES am_Course(crs_id)
 );
 
 CREATE TABLE am_Delivers (
@@ -83,9 +83,9 @@ CREATE TABLE am_Delivers (
 	dev_lec_id int NOT NULL,
 	dev_mod_id varchar(6) NOT NULL,
 	
-	CONSTRAINTS PK_Delivers PRIMARY KEY(dev_semester, dev_lec_id, dev_mod_id),
-	CONSTRAINTS FK_Dev_Lec_id FOREIGN KEY (dev_lec_id) REFERENCES am_Lecture(lec_id),
-	CONSTRAINTS FK_Dev_Mod_id FOREIGN KEY (dev_mod_id) REFERENCES am_Module(mod_id)
+	PRIMARY KEY(dev_semester, dev_lec_id, dev_mod_id),
+	FOREIGN KEY (dev_lec_id) REFERENCES am_Lecture(lec_id),
+	FOREIGN KEY (dev_mod_id) REFERENCES am_Module(mod_id)
 );
 
 -- The following are Data insertions into the tables to form dummy data.

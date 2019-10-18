@@ -21,8 +21,10 @@ public class Connector {
     public static Connection ConnectDb() {
         Connection connection = null;
         try {
-            Class.forName("oracle.jdbc.driver.OracleDriver");
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@10.0.18.2:1521:orcl","mor03625","mor03625");
+            //Class.forName("oracle.jdbc.driver.OracleDriver");
+            //connection = DriverManager.getConnection("jdbc:oracle:thin:@10.0.18.2:1521:orcl","mor03625","mor03625");
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/am-uni","root","");
             JOptionPane.showMessageDialog(null, "Connection Established");
             return connection;
         } catch (ClassNotFoundException | SQLException ex) {
