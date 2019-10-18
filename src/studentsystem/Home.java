@@ -137,6 +137,11 @@ public class Home extends javax.swing.JFrame {
         });
 
         stu_refreshButton.setText("Refresh");
+        stu_refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stu_refreshButtonActionPerformed(evt);
+            }
+        });
 
         mrg_semester.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,7 +297,7 @@ public class Home extends javax.swing.JFrame {
         String type = stu_type.getText();
         
         String query = "INSERT INTO am_Student \n " +
-                              "VALUES (?, ?, ?, ?);";
+                              "VALUES (?, ?, ?, ?)";
         
         try{
             PreparedStatement pre_smt = conn.prepareStatement(query);
@@ -345,8 +350,8 @@ public class Home extends javax.swing.JFrame {
         int student = Integer.parseInt(mrg_stu_id.getText());
         String module = mrg_id.getText();
         
-        String query = "INSERT INTO am_Student \n " +
-                              "VALUES (?, ?, ?);";
+        String query = "INSERT INTO am_ModuleRegistration \n " +
+                              "VALUES (?, ?, ?)";
         
         try{
             PreparedStatement pre_smt = conn.prepareStatement(query);
@@ -360,7 +365,7 @@ public class Home extends javax.swing.JFrame {
             
             DefaultTableModel model = (DefaultTableModel) moduleDisplayTable.getModel();
             model.setRowCount(0);
-            showModuleReg( moduleRegList());
+            showModuleReg(moduleRegList());
             
             pre_smt.close();
             conn.close();
@@ -371,6 +376,13 @@ public class Home extends javax.swing.JFrame {
             System.err.println("SQLException: " + ex.getMessage());
         }
     }//GEN-LAST:event_mrg_registerButtonActionPerformed
+
+    private void stu_refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_refreshButtonActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
+        model.setRowCount(0);
+        showStudents(studentList());
+    }//GEN-LAST:event_stu_refreshButtonActionPerformed
 
     // User defined methods
     
