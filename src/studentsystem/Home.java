@@ -31,6 +31,10 @@ public class Home extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
         model.setRowCount(0);
         showStudents(studentList());
+        
+         DefaultTableModel model2 = (DefaultTableModel) moduleDisplayTable.getModel();
+         model2.setRowCount(0);
+         showModuleReg( moduleRegList());
     }
 
     /**
@@ -42,6 +46,8 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         stu_id = new javax.swing.JTextField();
         stu_name = new javax.swing.JTextField();
         stu_surname = new javax.swing.JTextField();
@@ -56,6 +62,28 @@ public class Home extends javax.swing.JFrame {
         stu_search = new javax.swing.JTextField();
         stu_searchButton = new javax.swing.JButton();
         stu_refreshButton = new javax.swing.JButton();
+        mrg_semester = new javax.swing.JTextField();
+        mrg_id = new javax.swing.JTextField();
+        mrg_stu_id = new javax.swing.JTextField();
+        mrg_registerButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        moduleDisplayTable = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,7 +99,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        stu_register.setText("Register");
+        stu_register.setText("Register Student");
         stu_register.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stu_registerActionPerformed(evt);
@@ -109,11 +137,44 @@ public class Home extends javax.swing.JFrame {
         });
 
         stu_refreshButton.setText("Refresh");
-        stu_refreshButton.addActionListener(new java.awt.event.ActionListener() {
+
+        mrg_semester.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stu_refreshButtonActionPerformed(evt);
+                mrg_semesterActionPerformed(evt);
             }
         });
+
+        mrg_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mrg_idActionPerformed(evt);
+            }
+        });
+
+        mrg_registerButton.setText("Register Module");
+        mrg_registerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mrg_registerButtonActionPerformed(evt);
+            }
+        });
+
+        moduleDisplayTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Semester", "Module", "Student"
+            }
+        ));
+        jScrollPane3.setViewportView(moduleDisplayTable);
+
+        jLabel1.setText("Semester");
+
+        jLabel2.setText("Module");
+
+        jLabel3.setText("Student");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,28 +187,44 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(name_label)
                         .addComponent(surname_label, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(type_label)
-                    .addComponent(id_label))
+                    .addComponent(id_label)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(stu_id, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(stu_name, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(stu_surname, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(stu_type, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
-                    .addComponent(stu_search))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(85, 85, 85)
-                        .addComponent(stu_register)
-                        .addGap(204, 204, 204)
-                        .addComponent(stu_refreshButton))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(stu_id, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(stu_name, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(stu_surname, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(stu_type, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                            .addComponent(stu_search))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(58, 58, 58))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(stu_searchButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(stu_register)
+                                .addGap(223, 223, 223)
+                                .addComponent(stu_refreshButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(stu_searchButton)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(mrg_semester, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mrg_id, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mrg_stu_id, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(mrg_registerButton)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,7 +256,24 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(stu_search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(stu_searchButton)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mrg_semester, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mrg_id, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mrg_stu_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mrg_registerButton))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -236,12 +330,47 @@ public class Home extends javax.swing.JFrame {
         showStudents(searchList());
     }//GEN-LAST:event_stu_searchButtonActionPerformed
 
-    private void stu_refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stu_refreshButtonActionPerformed
+    private void mrg_semesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mrg_semesterActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
-        model.setRowCount(0);
-        showStudents(studentList());
-    }//GEN-LAST:event_stu_refreshButtonActionPerformed
+    }//GEN-LAST:event_mrg_semesterActionPerformed
+
+    private void mrg_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mrg_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mrg_idActionPerformed
+
+    private void mrg_registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mrg_registerButtonActionPerformed
+        // TODO add your handling code here:
+        
+        String semester = mrg_semester.getText();
+        int student = Integer.parseInt(mrg_stu_id.getText());
+        String module = mrg_id.getText();
+        
+        String query = "INSERT INTO am_Student \n " +
+                              "VALUES (?, ?, ?);";
+        
+        try{
+            PreparedStatement pre_smt = conn.prepareStatement(query);
+            
+           
+            pre_smt.setString(1, semester);
+            pre_smt.setInt(2, student);
+            pre_smt.setString(3, module);
+            
+            pre_smt.executeUpdate();
+            
+            DefaultTableModel model = (DefaultTableModel) moduleDisplayTable.getModel();
+            model.setRowCount(0);
+            showModuleReg( moduleRegList());
+            
+            pre_smt.close();
+            conn.close();
+            
+            JOptionPane.showMessageDialog(null, "Record "+student+" Added", "Update Student: "+ "Success", JOptionPane.INFORMATION_MESSAGE);
+            
+        }catch(SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_mrg_registerButtonActionPerformed
 
     // User defined methods
     
@@ -266,6 +395,27 @@ public class Home extends javax.swing.JFrame {
         return students;
     }
     
+    public ArrayList<ModuleRegistration> moduleRegList(){
+        
+        ArrayList<ModuleRegistration> moduleReg = new ArrayList<ModuleRegistration>();
+              
+        try {
+            String query = "SELECT * FROM am_moduleregistration";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            ModuleRegistration mr;
+                
+                while(rs.next()){
+                    mr = new ModuleRegistration(rs.getString("mrg_semester"), rs.getInt("mrg_stu_id"),rs.getString("mrg_mod_id"));
+                    moduleReg.add(mr);
+                }
+            
+        } catch (SQLException ex) {
+            System.err.println("SQLException: " + ex.getMessage());
+        }
+        return moduleReg;
+    }
+    
     public void showStudents(ArrayList li){
         ArrayList<Student> list = li;
         DefaultTableModel model = (DefaultTableModel) studentDisplayTable.getModel();
@@ -276,6 +426,19 @@ public class Home extends javax.swing.JFrame {
             row[1] = list.get(i).getName();
             row[2] = list.get(i).getSurname();
             row[3] = list.get(i).getType();
+            model.addRow(row);
+        }
+    }
+    
+    public void showModuleReg(ArrayList li){
+        ArrayList<ModuleRegistration> list = li;
+        DefaultTableModel model = (DefaultTableModel) moduleDisplayTable.getModel();
+        Object[] row = new Object[3];
+            
+        for(int i = 0; i<list.size(); i++){
+            row[0] = list.get(i).getSemester();
+            row[1] = list.get(i).getStudent();
+            row[2] = list.get(i).getModule();
             model.addRow(row);
         }
     }
@@ -348,7 +511,18 @@ public class Home extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel id_label;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable moduleDisplayTable;
+    private javax.swing.JTextField mrg_id;
+    private javax.swing.JButton mrg_registerButton;
+    private javax.swing.JTextField mrg_semester;
+    private javax.swing.JTextField mrg_stu_id;
     private javax.swing.JLabel name_label;
     private javax.swing.JTextField stu_id;
     private javax.swing.JTextField stu_name;
