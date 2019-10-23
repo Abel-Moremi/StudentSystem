@@ -5,6 +5,10 @@
  */
 package studentsystem;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author rudi
@@ -58,6 +62,11 @@ public class AdminLogin extends javax.swing.JFrame {
         studentForm.setForeground(new java.awt.Color(0, 204, 204));
         studentForm.setText("i'm a student");
         studentForm.setBorderPainted(false);
+        studentForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentFormActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,6 +127,15 @@ public class AdminLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void studentFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentFormActionPerformed
+                try {
+            new StudentLogin().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           this.setVisible(false);
+    }//GEN-LAST:event_studentFormActionPerformed
 
     /**
      * @param args the command line arguments

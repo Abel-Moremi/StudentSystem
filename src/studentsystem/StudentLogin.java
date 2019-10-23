@@ -5,6 +5,9 @@
  */
 package studentsystem;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author rudi
@@ -46,6 +49,11 @@ public class StudentLogin extends javax.swing.JFrame {
         backButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         backButton.setForeground(new java.awt.Color(255, 255, 255));
         backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel2.setText("Student  ID");
@@ -117,6 +125,15 @@ public class StudentLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+                   try {
+            new AdminLogin().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           this.setVisible(false);
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
