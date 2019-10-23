@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author Zozo
  */
-public class connector {
+public class DatabaseConnection {
     public static void main(String[] args) {
         ConnectDb();
     }
@@ -24,7 +24,7 @@ public class connector {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/meditech_appointment_system_database","root","");
-            //JOptionPane.showMessageDialog(null, "Connection Established");
+            //JOptionPane.showMessageDialog(null, "DatabaseConnection Established");
             return connection;
         } catch (ClassNotFoundException | SQLException ex) {
             JOptionPane.showMessageDialog(null, "Connection not Established");
