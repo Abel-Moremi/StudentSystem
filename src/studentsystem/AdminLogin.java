@@ -56,6 +56,11 @@ public class AdminLogin extends javax.swing.JFrame {
         loginBtn.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("Login");
+        loginBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginBtnActionPerformed(evt);
+            }
+        });
 
         studentForm.setBackground(new java.awt.Color(255, 255, 255));
         studentForm.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -136,6 +141,15 @@ public class AdminLogin extends javax.swing.JFrame {
         }
            this.setVisible(false);
     }//GEN-LAST:event_studentFormActionPerformed
+
+    private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
+                        try {
+            new AdminDashboard().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           this.setVisible(false);
+    }//GEN-LAST:event_loginBtnActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,18 +5,38 @@
  */
 package studentsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  *
  * @author rudi
  */
 public class AdminDashboard extends javax.swing.JFrame {
 
+    Connection con;
     /**
      * Creates new form AdminDashboard
      */
     public AdminDashboard() {
         initComponents();
+        
     }
+    
+       void createConnection() throws SQLException{
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
+            System.out.println("connection successful");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
