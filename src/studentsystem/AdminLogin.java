@@ -34,7 +34,7 @@ public class AdminLogin extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
         loginBtn = new javax.swing.JButton();
-        stdform = new javax.swing.JLabel();
+        studentForm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,16 +50,23 @@ public class AdminLogin extends javax.swing.JFrame {
 
         loginBtn.setBackground(new java.awt.Color(0, 204, 204));
         loginBtn.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("Login");
 
-        stdform.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
-        stdform.setForeground(new java.awt.Color(0, 204, 204));
-        stdform.setText("I'm a student!");
+        studentForm.setBackground(new java.awt.Color(255, 255, 255));
+        studentForm.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        studentForm.setForeground(new java.awt.Color(0, 204, 204));
+        studentForm.setText("i'm a student");
+        studentForm.setBorderPainted(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 462, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(451, 451, 451))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -71,16 +78,10 @@ public class AdminLogin extends javax.swing.JFrame {
                             .addComponent(password)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(488, 488, 488)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(stdform)))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(studentForm, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                            .addComponent(loginBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 462, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(451, 451, 451))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -98,8 +99,8 @@ public class AdminLogin extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(stdform)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addComponent(studentForm, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,6 +162,6 @@ public class AdminLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPasswordField password;
-    private javax.swing.JLabel stdform;
+    private javax.swing.JButton studentForm;
     // End of variables declaration//GEN-END:variables
 }
