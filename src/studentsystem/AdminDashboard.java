@@ -7,9 +7,12 @@ package studentsystem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -22,8 +25,9 @@ public class AdminDashboard extends javax.swing.JFrame {
     /**
      * Creates new form AdminDashboard
      */
-    public AdminDashboard() {
+    public AdminDashboard() throws SQLException  {
         initComponents();
+        createConnection();
         
     }
     
@@ -150,6 +154,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         addStudentButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         addStudentButton.setForeground(new java.awt.Color(0, 204, 204));
         addStudentButton.setText("Add Student");
+        addStudentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addStudentButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -343,6 +352,40 @@ public class AdminDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStudentButtonActionPerformed
+
+        Object type = studType.getSelectedItem();
+        String studentType = type.toString();
+       
+        
+                String query = "INSERT INTO am_student"
+                    + "(stu_name, stu_surname, stu_type, stu_password) VALUES"
+                    + "(?,?,?,?)";
+          try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            
+            stmt.setString(1, studName.getText());
+            stmt.setString(2, studSurname.getText());
+            stmt.setString(3, studentType);
+            stmt.setString(4, studPassword.getText());
+
+            
+            stmt.executeUpdate();
+       
+            System.out.println("record inserted^");
+            stmt.close();
+            //con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+          studName.setText("");
+          studSurname.setText("");
+          studPassword.setText("");
+          studType.setSelectedIndex(0);
+          JOptionPane.showMessageDialog(null, "Record Added", "Update Student: "+ "Success", JOptionPane.INFORMATION_MESSAGE);        // TODO add your handling code here:
+    }//GEN-LAST:event_addStudentButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -373,7 +416,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminDashboard().setVisible(true);
+                try {
+                    new AdminDashboard().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
