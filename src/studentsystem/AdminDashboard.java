@@ -194,6 +194,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         viewAllButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         viewAllButton.setForeground(new java.awt.Color(0, 204, 204));
         viewAllButton.setText("All Students");
+        viewAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewAllButtonActionPerformed(evt);
+            }
+        });
 
         enrolledStudentsButton.setBackground(new java.awt.Color(255, 255, 255));
         enrolledStudentsButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -507,6 +512,15 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_logoutButtonActionPerformed
+
+    private void viewAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewAllButtonActionPerformed
+        try {
+            new AllStudents().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           this.setVisible(false);
+    }//GEN-LAST:event_viewAllButtonActionPerformed
 
     /**
      * @param args the command line arguments
