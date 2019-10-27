@@ -5,17 +5,102 @@
  */
 package studentsystem;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author rudi
  */
 public class AllStudents extends javax.swing.JFrame {
 
+    Connection con;
+    String surname;
+    String course;
+    Date date;
     /**
      * Creates new form AllStudents
      */
-    public AllStudents() {
+    public AllStudents() throws SQLException {
         initComponents();
+        createConnection();
+        showStudents();
+    }
+    
+    public AllStudents(String surname, String course, Date date) {
+        this.surname = surname;
+        this.course = course;
+        this.date = date;
+    }
+    
+    public String getSurname(){
+        return this.surname;
+    }
+    
+    public String getCourse(){
+        return this.course;
+    }
+        
+    public Date getDate(){
+        return this.date;
+    }
+    
+    void createConnection() throws SQLException{
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lab6", "root","");
+            System.out.println("connection successful");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AllStudents.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void showStudents(){
+        ArrayList<AllStudents> list = studentList();
+        DefaultTableModel model = (DefaultTableModel) studentsTable.getModel();
+        Object[] row = new Object[3];
+            
+        for(int i = 0; i<list.size(); i++){
+            row[0] = list.get(i).getSurname();
+            row[1] = list.get(i).getName();
+            row[2] = list.get(i).getSurname();
+            model.addRow(row);
+        }
+            
+    }
+            
+    public ArrayList<AllStudents> studentList(){
+        
+        //ArrayList<Student> students = new ArrayList<Student>();
+        
+        ArrayList<AllStudents> students = new ArrayList<AllStudents>();
+           
+        try {
+            String query = "SELECT am_student.stu_surname, am_course.crs_name, am_courseregistration.crg_date_registered FROM am_student\n" +
+                            "INNER JOIN am_courseregistration ON am_student.stu_id = am_courseregistration.crg_stu_id\n" +
+                            "INNER JOIN am_course ON am_courseregistration.crg_crs_id = am_course.crs_id";
+            
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            AllStudents tr;
+                
+            while(rs.next()){
+                tr = new AllStudents(rs.getString("stu_surname"), rs.getString("crs_name"),rs.getDate("crg_date_registered"));
+                students.add(tr);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AllStudents.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return students;
     }
 
     /**
@@ -123,7 +208,11 @@ public class AllStudents extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AllStudents().setVisible(true);
+                try {
+                    new AllStudents().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AllStudents.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
