@@ -56,7 +56,7 @@ public class AllStudents extends javax.swing.JFrame {
     void createConnection() throws SQLException{
         try {
             Class.forName("com.mysql.jdbc.Driver");
-             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/lab6", "root","");
+             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
             System.out.println("connection successful");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AllStudents.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,8 +70,8 @@ public class AllStudents extends javax.swing.JFrame {
             
         for(int i = 0; i<list.size(); i++){
             row[0] = list.get(i).getSurname();
-            row[1] = list.get(i).getName();
-            row[2] = list.get(i).getSurname();
+            row[1] = list.get(i).getCourse();
+            row[2] = list.get(i).getDate();
             model.addRow(row);
         }
             
