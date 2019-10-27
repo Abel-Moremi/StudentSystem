@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -135,7 +136,71 @@ public class AdminDashboard extends javax.swing.JFrame {
           
           
         }
+        
+    public void listModules(String course){
+        ArrayList<Module> list = moduleList(course);
+        DefaultTableModel model = (DefaultTableModel) moduleTable.getModel();
+        Object[] row = new Object[2];
+            
+        for(int i = 0; i<list.size(); i++){
+            row[0] = list.get(i).getModId();
+            row[1] = list.get(i).getModName();
+            model.addRow(row);
+        }
+            
+    }
+            
+    public ArrayList<Module> moduleList(String course){
+        
+        ArrayList<Module> modules = new ArrayList<Module>();
+           
+        try {
+            String query = "SELECT mod_id, mod_name FROM am_module WHERE mod_course='"+course+"'";
+            
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            Module tr;
+                
+            while(rs.next()){
+                tr = new Module(rs.getString("mod_id"), rs.getString("mod_name"));
+                modules.add(tr);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return modules;
+    }
 
+    public String findCourse(){
+        String course = "";
+        String courseName = "";
+        try {
+            String query = "SELECT am_course.crs_id , am_course.crs_name FROM am_course\n" +
+                            "INNER JOIN am_courseregistration ON am_course.crs_id = am_courseregistration.crg_crs_id\n" +
+                            "WHERE am_courseregistration.crg_stu_id ="+Integer.parseInt(searchField.getText());
+            
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            Module tr;
+                
+            while(rs.next()){
+
+                course = rs.getString("crs_id");
+                courseName = rs.getString("crs_name");
+            }
+            
+            if(course.equals("")){
+                  JOptionPane.showMessageDialog(null, "This student does not exist", "Search Student: "+ "Failed", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        targetCourse.setText(courseName);
+        return course;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -177,6 +242,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         searchButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         moduleTable = new javax.swing.JTable();
+        targetCourse = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -423,6 +490,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         searchButton.setBackground(new java.awt.Color(255, 255, 255));
         searchButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         searchButton.setText("search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         moduleTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -434,31 +506,48 @@ public class AdminDashboard extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(moduleTable);
 
+        targetCourse.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
+        targetCourse.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel11.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Search Student By ID");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(0, 73, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(targetCourse)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(214, 214, 214))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(129, 129, 129)
+                        .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(jLabel11))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(210, 210, 210)
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel11)
+                .addGap(46, 46, 46)
                 .addComponent(searchField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGap(28, 28, 28)
+                .addComponent(targetCourse)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(189, Short.MAX_VALUE))
         );
@@ -575,6 +664,13 @@ public class AdminDashboard extends javax.swing.JFrame {
            this.setVisible(false);
     }//GEN-LAST:event_enrolledStudentsButtonActionPerformed
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        DefaultTableModel model = (DefaultTableModel) moduleTable.getModel();
+        model.setRowCount(0);
+        String course = findCourse();
+        listModules(course);
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -622,6 +718,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton enrolledStudentsButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -645,6 +742,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField studSurname;
     private javax.swing.JComboBox<String> studType;
     private javax.swing.JComboBox<String> students;
+    private javax.swing.JLabel targetCourse;
     private javax.swing.JButton viewAllButton;
     // End of variables declaration//GEN-END:variables
 }
