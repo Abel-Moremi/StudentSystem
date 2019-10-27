@@ -49,8 +49,12 @@ public class StudentDashboard extends javax.swing.JFrame {
            
         
         public void modules(){
+            String course = getCourse();
+            
             try {
-                String query = "SELECT * FROM am_module";
+                String query = "SELECT am_module.mod_id FROM am_module\n" +
+                                "INNER JOIN am_course ON am_course.crs_id = am_module.mod_course\n" +
+                                "WHERE am_course.crs_id ='"+course+"'";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
 
@@ -62,6 +66,24 @@ public class StudentDashboard extends javax.swing.JFrame {
               } catch (SQLException ex) {
                   Logger.getLogger(StudentDashboard.class.getName()).log(Level.SEVERE, null, ex);
              }
+        }
+ 
+        public String getCourse(){
+            String course = "";
+        try {
+                String query = "SELECT crg_crs_id FROM am_courseregistration WHERE crg_stu_id="+studentId;
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+
+
+                while(rs.next()){
+                    course = rs.getString("crg_crs_id");
+                }
+
+              } catch (SQLException ex) {
+                  Logger.getLogger(StudentDashboard.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        return course;
         }
            
         public void register(){
