@@ -8,7 +8,9 @@ package studentsystem;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -28,18 +30,111 @@ public class AdminDashboard extends javax.swing.JFrame {
     public AdminDashboard() throws SQLException  {
         initComponents();
         createConnection();
+        courses();
+        students();
         
     }
     
        void createConnection() throws SQLException{
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
-            System.out.println("connection successful");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
+                System.out.println("connection successful");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }
+       
+       /**
+        *Courses method selects all the courses from the DB and appends
+        *the "select courses" drop down 
+        */
+        public void courses(){
+            try {
+                String query = "SELECT * FROM am_course";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+
+
+                while(rs.next()){
+                    courses.addItem(rs.getString("crs_id"));
+                }
+
+              } catch (SQLException ex) {
+                  Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+             }
+        }
+            
+        public void students(){
+            try {
+                String query = "SELECT * FROM am_student";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+          
+                
+                while(rs.next()){
+                    students.addItem(Integer.toString(rs.getInt("stu_id")));
+                }
+            
+             } catch (SQLException ex) {
+                Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        public void enroll(){
+
+            long time = System.currentTimeMillis();
+            java.sql.Date date = new java.sql.Date(time);
+            
+            Object yr = enrollYear.getSelectedItem();
+            String year = yr.toString();
+            int enrollmentYear = 0;
+            
+            if(year.equals("year 1")){
+                enrollmentYear = 1;
+            }else if(year.equals("year 2")){
+                enrollmentYear = 2;
+            }else if(year.equals("year 3")){
+                enrollmentYear = 3;
+            }else if(year.equals("year 4")){
+                enrollmentYear = 4;
+            }else if(year.equals("year 5")){
+                enrollmentYear = 5;
+            }
+            
+            Object crs = courses.getSelectedItem();
+            String crsID = crs.toString();
+            
+            Object std = students.getSelectedItem();
+            int stdID = Integer.parseInt(std.toString());
+        
+                String query = "INSERT INTO am_courseregistration"
+                    + "(crg_year, crg_crs_id, crg_stu_id, crg_date_registered) VALUES"
+                    + "(?,?,?,?)";
+          try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            
+            stmt.setInt(1, enrollmentYear);
+            stmt.setString(2, crsID);
+            stmt.setInt(3, stdID);
+            stmt.setDate(4, date);
+
+            stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Student Enrolled!!", "Enroll Student: "+ "Successful", JOptionPane.INFORMATION_MESSAGE);
+    
+            stmt.close();
+            //con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "You can not enroll a student to more than one course", "Enroll Student: "+ "Failed", JOptionPane.INFORMATION_MESSAGE);
+        }
+          
+          students.setSelectedIndex(0);
+          courses.setSelectedIndex(0);
+          enrollYear.setSelectedIndex(0);
+          
+          
+        }
 
 
     /**
@@ -89,6 +184,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         logoutButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         logoutButton.setForeground(new java.awt.Color(255, 0, 0));
         logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
 
         viewAllButton.setBackground(new java.awt.Color(255, 255, 255));
         viewAllButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -227,7 +327,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel8.setText("Course");
 
         courses.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        courses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Course", " " }));
+        courses.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Course" }));
+        courses.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                coursesActionPerformed(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -240,6 +345,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         enrollButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         enrollButton.setForeground(new java.awt.Color(0, 204, 204));
         enrollButton.setText("Enroll");
+        enrollButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enrollButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -385,6 +495,18 @@ public class AdminDashboard extends javax.swing.JFrame {
           studType.setSelectedIndex(0);
           JOptionPane.showMessageDialog(null, "Record Added", "Update Student: "+ "Success", JOptionPane.INFORMATION_MESSAGE);        // TODO add your handling code here:
     }//GEN-LAST:event_addStudentButtonActionPerformed
+
+    private void coursesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coursesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_coursesActionPerformed
+
+    private void enrollButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enrollButtonActionPerformed
+        enroll();
+    }//GEN-LAST:event_enrollButtonActionPerformed
+
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logoutButtonActionPerformed
 
     /**
      * @param args the command line arguments

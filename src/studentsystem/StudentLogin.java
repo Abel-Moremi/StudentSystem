@@ -45,7 +45,7 @@ public class StudentLogin extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/studentsystem/stud.png"))); // NOI18N
 
-        backButton.setBackground(new java.awt.Color(0, 204, 204));
+        backButton.setBackground(new java.awt.Color(0, 0, 0));
         backButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         backButton.setForeground(new java.awt.Color(255, 255, 255));
         backButton.setText("Back");
@@ -61,7 +61,7 @@ public class StudentLogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel3.setText("Password");
 
-        loginButton.setBackground(new java.awt.Color(0, 204, 204));
+        loginButton.setBackground(new java.awt.Color(0, 0, 0));
         loginButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("Login");

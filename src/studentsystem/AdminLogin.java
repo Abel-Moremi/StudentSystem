@@ -52,7 +52,7 @@ public class AdminLogin extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel3.setText("Password");
 
-        loginBtn.setBackground(new java.awt.Color(0, 204, 204));
+        loginBtn.setBackground(new java.awt.Color(0, 0, 0));
         loginBtn.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("Login");
