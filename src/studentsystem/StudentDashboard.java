@@ -11,10 +11,16 @@ package studentsystem;
  */
 public class StudentDashboard extends javax.swing.JFrame {
 
+    int studentId;
     /**
      * Creates new form StudentDashboard
      */
     public StudentDashboard() {
+        initComponents();
+    }
+    
+    public StudentDashboard(int studentId) {
+        this.studentId = studentId;
         initComponents();
     }
 

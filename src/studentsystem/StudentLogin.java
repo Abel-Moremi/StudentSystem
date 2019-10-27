@@ -5,8 +5,14 @@
  */
 package studentsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,12 +20,24 @@ import java.util.logging.Logger;
  */
 public class StudentLogin extends javax.swing.JFrame {
 
+    Connection con;
     /**
      * Creates new form StudentLogin
      */
-    public StudentLogin() {
+    public StudentLogin() throws SQLException {
         initComponents();
+        createConnection();
     }
+    
+           void createConnection() throws SQLException{
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
+                System.out.println("connection successful");
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,6 +83,11 @@ public class StudentLogin extends javax.swing.JFrame {
         loginButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("Login");
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -135,6 +158,50 @@ public class StudentLogin extends javax.swing.JFrame {
            this.setVisible(false);
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        int studId = Integer.parseInt(studentID.getText());
+        String pass = password.getText();
+        Boolean isCorrect = true;
+        
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT stu_id, stu_password FROM am_student");
+            
+            int tempId;
+            String tempPassword;
+            while(rs.next()){
+        
+                
+                 tempId = rs.getInt("stu_id");
+                 tempPassword = rs.getString("stu_password");
+                 
+                 if(studId == tempId && pass.equals(tempPassword)){
+                     isCorrect = true;
+                     new StudentDashboard(studId).setVisible(rootPaneCheckingEnabled);
+                     this.setVisible(false);
+                     System.out.println("Welcome "+studId);
+                
+                    JOptionPane.showMessageDialog(null, "Login successful...", "infoBox: "+ "Success", JOptionPane.INFORMATION_MESSAGE);
+        
+                 }else{
+                    isCorrect = false;
+                 }
+                 
+                 
+            }
+            
+            if(!isCorrect){
+                     JOptionPane.showMessageDialog(null, "Incorrect Credentials", "infoBox: "+ "Error", JOptionPane.INFORMATION_MESSAGE);
+                     studentID.setText("");
+                     password.setText("");
+                     
+                 }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Incorrect Credentials", "infoBox: "+ "Error", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_loginButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -165,7 +232,11 @@ public class StudentLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new StudentLogin().setVisible(true);
+                try {
+                    new StudentLogin().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
