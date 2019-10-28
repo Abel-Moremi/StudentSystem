@@ -29,15 +29,15 @@ public class StudentLogin extends javax.swing.JFrame {
         createConnection();
     }
     
-           void createConnection() throws SQLException{
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
-                System.out.println("connection successful");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    void createConnection() throws SQLException{
+     try {
+         Class.forName("com.mysql.jdbc.Driver");
+          con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
+         System.out.println("connection successful");
+     } catch (ClassNotFoundException ex) {
+         Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+     }
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
