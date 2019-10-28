@@ -163,7 +163,7 @@ public class AdminLogin extends javax.swing.JFrame {
                        
         String mail = email.getText();
         String pass = password.getText();
-        Boolean isCorrect = true;
+        Boolean isCorrect = false;
         
         try {
             Statement stmt = con.createStatement();
@@ -178,18 +178,14 @@ public class AdminLogin extends javax.swing.JFrame {
                  tempPassword = rs.getString("admin_password");
                  
                  if(mail.equals(tempEmail) && pass.equals(tempPassword)){
-                     isCorrect = true;
+                    isCorrect = true;
                      new AdminDashboard().setVisible(rootPaneCheckingEnabled);
                      this.setVisible(false);
                      System.out.println("Welcome "+mail);
                 
                     JOptionPane.showMessageDialog(null, "Login successful...", "infoBox: "+ "Success", JOptionPane.INFORMATION_MESSAGE);
-        
-                 }else{
-                    isCorrect = false;
+                    return;
                  }
-                 
-                 
             }
             
             if(!isCorrect){
