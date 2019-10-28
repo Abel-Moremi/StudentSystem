@@ -278,19 +278,20 @@ public class Assessment extends javax.swing.JFrame {
             stmt.setInt(4, Integer.parseInt(markField.getText()));
 
             stmt.executeUpdate();
-       
+             JOptionPane.showMessageDialog(null, "Assessment Mark Added", "Update Marks: "+ "Success", JOptionPane.INFORMATION_MESSAGE); 
             System.out.println("record inserted^");
             stmt.close();
             //con.close();
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "You have already added this mark", "Update Mark: "+ "Fail", JOptionPane.INFORMATION_MESSAGE); 
             Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
         }
           
           markField.setText("");
           modules.setSelectedIndex(0);
-          students.setSelectedIndex(0);
+          students.setSelectedIndex(1);
           aType.setSelectedIndex(0);
-          JOptionPane.showMessageDialog(null, "Record Added", "Update Student: "+ "Success", JOptionPane.INFORMATION_MESSAGE); 
+         
     }//GEN-LAST:event_submitGradeButtonActionPerformed
 
     private void studentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsActionPerformed
