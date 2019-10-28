@@ -7,11 +7,13 @@ package studentsystem;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,7 +29,7 @@ public class Assessment extends javax.swing.JFrame {
         initComponents();
         createConnection();
         students();
-        modules();
+        
     }
     
     void createConnection() throws SQLException{
@@ -57,6 +59,7 @@ public class Assessment extends javax.swing.JFrame {
     }
     
     public void modules(){
+        
         Object stud = students.getSelectedItem();
         int id = Integer.parseInt(stud.toString());
         
@@ -70,7 +73,7 @@ public class Assessment extends javax.swing.JFrame {
 
 
             while(rs.next()){
-                modules.addItem(Integer.toString(rs.getInt("stu_id")));
+                modules.addItem(rs.getString("mod_id"));
             }
 
          } catch (SQLException ex) {
@@ -93,7 +96,7 @@ public class Assessment extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         students = new javax.swing.JComboBox<>();
         modules = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        aType = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         markField = new javax.swing.JTextField();
         submitGradeButton = new javax.swing.JButton();
@@ -131,12 +134,22 @@ public class Assessment extends javax.swing.JFrame {
 
         students.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         students.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "select student by id" }));
+        students.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentsActionPerformed(evt);
+            }
+        });
 
         modules.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         modules.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "select module" }));
+        modules.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modulesActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "select assessment", "Test 1", "Test 2", "Exam", "Sup Exam" }));
+        aType.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        aType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "select assessment", "Test 1", "Test 2", "Exam", "Sup Exam" }));
 
         jLabel1.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         jLabel1.setText("Assign Mark");
@@ -166,7 +179,7 @@ public class Assessment extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(aType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(modules, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(students, 0, 472, Short.MAX_VALUE)))))
                 .addGap(65, 65, 65))
@@ -185,7 +198,7 @@ public class Assessment extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(modules, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(aType, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,7 +257,50 @@ public class Assessment extends javax.swing.JFrame {
 
     private void submitGradeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitGradeButtonActionPerformed
         
+        Object stud = students.getSelectedItem();
+        int studentID = Integer.parseInt(stud.toString());
+       
+        Object mod = modules.getSelectedItem();
+        String modID = mod.toString();
+        
+        Object assType = aType.getSelectedItem();
+        String type = assType.toString();
+        
+                String query = "INSERT INTO am_assessment"
+                    + "(ass_stu_id, ass_mod_id, ass_name, ass_mak) VALUES"
+                    + "(?,?,?,?)";
+          try {
+            PreparedStatement stmt = con.prepareStatement(query);
+            
+            stmt.setInt(1, studentID);
+            stmt.setString(2, modID);
+            stmt.setString(3, type);
+            stmt.setInt(4, Integer.parseInt(markField.getText()));
+
+            stmt.executeUpdate();
+       
+            System.out.println("record inserted^");
+            stmt.close();
+            //con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          
+          markField.setText("");
+          modules.setSelectedIndex(0);
+          students.setSelectedIndex(0);
+          aType.setSelectedIndex(0);
+          JOptionPane.showMessageDialog(null, "Record Added", "Update Student: "+ "Success", JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_submitGradeButtonActionPerformed
+
+    private void studentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsActionPerformed
+        modules.removeAllItems();
+        modules();
+    }//GEN-LAST:event_studentsActionPerformed
+
+    private void modulesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modulesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modulesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,8 +342,8 @@ public class Assessment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> aType;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
