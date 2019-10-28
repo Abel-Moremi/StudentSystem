@@ -91,10 +91,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="logoutButton" min="-2" pref="181" max="-2" attributes="0"/>
-                                  <Component id="viewAllButton" min="-2" pref="181" max="-2" attributes="0"/>
-                                  <Component id="enrolledStudentsButton" min="-2" pref="181" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="logoutButton" max="32767" attributes="0"/>
+                                  <Component id="viewAllButton" max="32767" attributes="0"/>
+                                  <Component id="enrolledStudentsButton" max="32767" attributes="0"/>
+                                  <Component id="assessmentButton" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -115,6 +116,8 @@
                       <Component id="enrolledStudentsButton" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="viewAllButton" min="-2" pref="57" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Component id="assessmentButton" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="logoutButton" min="-2" pref="56" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
@@ -181,6 +184,23 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Admin"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="assessmentButton">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI" size="18" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="cc" green="cc" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Assess Student"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assessmentButtonActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -217,6 +217,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         viewAllButton = new javax.swing.JButton();
         enrolledStudentsButton = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        assessmentButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         studName = new javax.swing.JTextField();
@@ -284,6 +285,16 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Yu Gothic", 1, 36)); // NOI18N
         jLabel10.setText("Admin");
 
+        assessmentButton.setBackground(new java.awt.Color(255, 255, 255));
+        assessmentButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        assessmentButton.setForeground(new java.awt.Color(0, 204, 204));
+        assessmentButton.setText("Assess Student");
+        assessmentButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assessmentButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -292,10 +303,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(viewAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(enrolledStudentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(logoutButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(viewAllButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(enrolledStudentsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(assessmentButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jLabel10)))
@@ -310,6 +322,8 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(enrolledStudentsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(viewAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(assessmentButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -680,6 +694,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_studentsActionPerformed
 
+    private void assessmentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assessmentButtonActionPerformed
+           try {
+            new Assessment().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           this.setVisible(false);
+    }//GEN-LAST:event_assessmentButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -721,6 +744,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addStudentButton;
+    private javax.swing.JButton assessmentButton;
     private javax.swing.JComboBox<String> courses;
     private javax.swing.JButton enrollButton;
     private javax.swing.JComboBox<String> enrollYear;

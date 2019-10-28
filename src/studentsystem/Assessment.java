@@ -27,7 +27,7 @@ public class Assessment extends javax.swing.JFrame {
         initComponents();
         createConnection();
         students();
-        
+        modules();
     }
     
     void createConnection() throws SQLException{
@@ -49,6 +49,28 @@ public class Assessment extends javax.swing.JFrame {
 
             while(rs.next()){
                 students.addItem(Integer.toString(rs.getInt("stu_id")));
+            }
+
+         } catch (SQLException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void modules(){
+        Object stud = students.getSelectedItem();
+        int id = Integer.parseInt(stud.toString());
+        
+        try {
+            String query = "SELECT DISTINCT am_module.mod_id FROM am_module\n" +
+                            "INNER JOIN am_moduleregistration ON am_moduleregistration.mrg_mod_id = am_module.mod_id\n" +
+                            "WHERE am_moduleregistration.mrg_stu_id ="+id;
+            
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+
+            while(rs.next()){
+                modules.addItem(Integer.toString(rs.getInt("stu_id")));
             }
 
          } catch (SQLException ex) {
