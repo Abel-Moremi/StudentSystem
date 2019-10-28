@@ -5,17 +5,55 @@
  */
 package studentsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author rudi
  */
 public class Assessment extends javax.swing.JFrame {
-
+    
+    Connection con;
     /**
      * Creates new form Assessment
      */
-    public Assessment() {
+    public Assessment() throws SQLException {
         initComponents();
+        createConnection();
+        students();
+        
+    }
+    
+    void createConnection() throws SQLException{
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
+            System.out.println("connection successful");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void students(){
+        try {
+            String query = "SELECT * FROM am_student";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+
+            while(rs.next()){
+                students.addItem(Integer.toString(rs.getInt("stu_id")));
+            }
+
+         } catch (SQLException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -84,6 +122,11 @@ public class Assessment extends javax.swing.JFrame {
         submitGradeButton.setBackground(new java.awt.Color(255, 255, 255));
         submitGradeButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 14)); // NOI18N
         submitGradeButton.setText("Add Grade");
+        submitGradeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitGradeButtonActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Yu Gothic UI", 0, 24)); // NOI18N
         jLabel2.setText("Enter Student Marks");
@@ -177,6 +220,10 @@ public class Assessment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void submitGradeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitGradeButtonActionPerformed
+        
+    }//GEN-LAST:event_submitGradeButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -207,7 +254,11 @@ public class Assessment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Assessment().setVisible(true);
+                try {
+                    new Assessment().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Assessment.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

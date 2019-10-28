@@ -431,6 +431,11 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         students.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         students.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Student by ID" }));
+        students.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentsActionPerformed(evt);
+            }
+        });
 
         enrollButton.setBackground(new java.awt.Color(255, 255, 255));
         enrollButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
@@ -670,6 +675,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         String course = findCourse();
         listModules(course);
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void studentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studentsActionPerformed
 
     /**
      * @param args the command line arguments
