@@ -29,15 +29,15 @@ public class StudentLogin extends javax.swing.JFrame {
         createConnection();
     }
     
-           void createConnection() throws SQLException{
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
-                System.out.println("connection successful");
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+    void createConnection() throws SQLException{
+     try {
+         Class.forName("com.mysql.jdbc.Driver");
+          con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
+         System.out.println("connection successful");
+     } catch (ClassNotFoundException ex) {
+         Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+     }
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -150,7 +150,7 @@ public class StudentLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-                   try {
+        try {
             new AdminLogin().setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -161,7 +161,7 @@ public class StudentLogin extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         int studId = Integer.parseInt(studentID.getText());
         String pass = password.getText();
-        Boolean isCorrect = true;
+        Boolean isCorrect = false;
         
         try {
             Statement stmt = con.createStatement();
@@ -182,9 +182,7 @@ public class StudentLogin extends javax.swing.JFrame {
                      System.out.println("Welcome "+studId);
                 
                     JOptionPane.showMessageDialog(null, "Login successful...", "infoBox: "+ "Success", JOptionPane.INFORMATION_MESSAGE);
-        
-                 }else{
-                    isCorrect = false;
+                    return;
                  }
                  
                  

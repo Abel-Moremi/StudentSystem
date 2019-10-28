@@ -5,9 +5,14 @@
  */
 package studentsystem;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,11 +20,23 @@ import java.util.logging.Logger;
  */
 public class AdminLogin extends javax.swing.JFrame {
 
+    Connection con;
     /**
      * Creates new form AdminLogin
      */
-    public AdminLogin() {
+    public AdminLogin() throws SQLException {
         initComponents();
+        createConnection();
+    }
+    
+    void createConnection() throws SQLException{
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
+            System.out.println("connection successful");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -143,7 +160,47 @@ public class AdminLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_studentFormActionPerformed
 
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
-                        try {
+                       
+        String mail = email.getText();
+        String pass = password.getText();
+        Boolean isCorrect = false;
+        
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT admin_email, admin_password FROM am_admin");
+            
+            String tempEmail;
+            String tempPassword;
+            while(rs.next()){
+        
+                
+                 tempEmail = rs.getString("admin_email");
+                 tempPassword = rs.getString("admin_password");
+                 
+                 if(mail.equals(tempEmail) && pass.equals(tempPassword)){
+                    isCorrect = true;
+                     new AdminDashboard().setVisible(rootPaneCheckingEnabled);
+                     this.setVisible(false);
+                     System.out.println("Welcome "+mail);
+                
+                    JOptionPane.showMessageDialog(null, "Login successful...", "infoBox: "+ "Success", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                 }
+            }
+            
+            if(!isCorrect){
+                     JOptionPane.showMessageDialog(null, "Incorrect Credentials", "infoBox: "+ "Error", JOptionPane.INFORMATION_MESSAGE);
+                     email.setText("");
+                     password.setText("");
+                     
+                 }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Incorrect Credentials", "infoBox: "+ "Error", JOptionPane.INFORMATION_MESSAGE);
+            Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        try {
             new AdminDashboard().setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,7 +238,11 @@ public class AdminLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminLogin().setVisible(true);
+                try {
+                    new AdminLogin().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
