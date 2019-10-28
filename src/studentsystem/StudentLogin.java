@@ -161,7 +161,7 @@ public class StudentLogin extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         int studId = Integer.parseInt(studentID.getText());
         String pass = password.getText();
-        Boolean isCorrect = true;
+        Boolean isCorrect = false;
         
         try {
             Statement stmt = con.createStatement();
@@ -182,9 +182,7 @@ public class StudentLogin extends javax.swing.JFrame {
                      System.out.println("Welcome "+studId);
                 
                     JOptionPane.showMessageDialog(null, "Login successful...", "infoBox: "+ "Success", JOptionPane.INFORMATION_MESSAGE);
-        
-                 }else{
-                    isCorrect = false;
+                    return;
                  }
                  
                  
