@@ -27,7 +27,7 @@ public class Assessments {
         return this.studentId;
     }
     
-    public String getmoduleID(){
+    public String getModuleID(){
         return this.moduleId;
     }
     

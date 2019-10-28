@@ -238,6 +238,11 @@ public class StudentDashboard extends javax.swing.JFrame {
         viewGradesButton.setBackground(new java.awt.Color(255, 255, 255));
         viewGradesButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
         viewGradesButton.setText("view grades");
+        viewGradesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewGradesButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -337,6 +342,15 @@ public class StudentDashboard extends javax.swing.JFrame {
         }
            this.setVisible(false);
     }//GEN-LAST:event_LogoutButtonActionPerformed
+
+    private void viewGradesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewGradesButtonActionPerformed
+            try {
+            new ViewGrades(studentId).setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(StudentDashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           this.setVisible(false);
+    }//GEN-LAST:event_viewGradesButtonActionPerformed
 
     /**
      * @param args the command line arguments
