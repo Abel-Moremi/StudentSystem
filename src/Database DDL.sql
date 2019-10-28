@@ -11,43 +11,55 @@
 -- Creation and Definition of all needed tables
 -- Constraints "Primary and FOREIGN Key" definitions are made as tables are defined
 -- Name spacing used to show associations clearly 
+CREATE TABLE am_Admin(
+    admin_id int NOT NULL,
+	admin_name varchar(25),
+	admin_email varchar(25),
+        admin_password varchar(25),
+
+	
+	CONSTRAINT PK_Admin PRIMARY KEY(admin_email)
+);
 
 CREATE TABLE am_University (
     uni_no int NOT NULL,
 	uni_name varchar(25),
 	uni_city varchar(25),
 	
-	CONSTRAINTS PK_University PRIMARY KEY(uni_no)
+	CONSTRAINT PK_University PRIMARY KEY(uni_no)
 );
 
 CREATE TABLE am_Course (
 	crs_id varchar(6) NOT NULL,
 	crs_name varchar(25),
 	
-	CONSTRAINTS PK_Course PRIMARY KEY(crs_id)
+	CONSTRAINT PK_Course PRIMARY KEY(crs_id)
 );
 
 CREATE TABLE am_Module (
 	mod_id varchar(6) NOT NULL,
 	mod_name varchar(25),
 	mod_pre varchar(6),
+        mod_course varchar(6),
 	
-	CONSTRAINTS PK_Module PRIMARY KEY(mod_id)
+	CONSTRAINT PK_Module PRIMARY KEY(mod_id, mod_course)
+        CONSTRAINT FK_Module_Course FOREIGN KEY (mod_course) REFERENCES am_Course(crs_id),
 );
 
 CREATE TABLE am_Student (
-	stu_id int NOT NULL,
+	stu_id int NOT NULL AUTO_INCREMENT,
 	stu_name varchar(25),
 	stu_type varchar(25),
+        stu_password varchar(191);
 	
-	CONSTRAINTS PK_Student PRIMARY KEY(stu_id)
+	CONSTRAINT PK_Student PRIMARY KEY(stu_id)
 );
 
 CREATE TABLE am_Lecture (
 	lec_id int NOT NULL,
 	lec_name varchar(25),
 	
-	CONSTRAINTS PK_Lecture PRIMARY KEY(lec_id)
+	CONSTRAINT PK_Lecture PRIMARY KEY(lec_id)
 );
 
 CREATE TABLE am_Assessment (
@@ -56,29 +68,31 @@ CREATE TABLE am_Assessment (
 	ass_name varchar(25),
 	ass_mak int,
 	
-	CONSTRAINTS PK_Assesment PRIMARY KEY(ass_stu_id, ass_mod_id),
-	CONSTRAINTS FK_Ass_Student_id FOREIGN KEY (ass_stu_id) REFERENCES am_Student(stu_id),
-	CONSTRAINTS FK_Ass_Module_id FOREIGN KEY (ass_mod_id) REFERENCES am_Module(mod_id)
+	CONSTRAINT PK_Assesment PRIMARY KEY(ass_stu_id, ass_mod_id),
+	CONSTRAINT FK_Ass_Student_id FOREIGN KEY (ass_stu_id) REFERENCES am_Student(stu_id),
+	CONSTRAINT FK_Ass_Module_id FOREIGN KEY (ass_mod_id) REFERENCES am_Module(mod_id)
 );
 
 CREATE TABLE am_ModuleRegistration (
 	mrg_semester varchar(25) NOT NULL,
 	mrg_stu_id int NOT NULL,
 	mrg_mod_id varchar(6) NOT NULL,
+        mrg_date_registered DATE,
 	
-	CONSTRAINTS PK_ModuleRegistration PRIMARY KEY(mrg_semester, mrg_stu_id, mrg_mod_id),
-	CONSTRAINTS FK_Mrg_Student_id FOREIGN KEY (mrg_stu_id) REFERENCES am_Student(stu_id),
-	CONSTRAINTS FK_Mrg_Module_id FOREIGN KEY (mrg_mod_id) REFERENCES am_Module(mod_id)
+	CONSTRAINT PK_ModuleRegistration PRIMARY KEY(mrg_semester, mrg_stu_id, mrg_mod_id),
+	CONSTRAINT FK_Mrg_Student_id FOREIGN KEY (mrg_stu_id) REFERENCES am_Student(stu_id),
+	CONSTRAINT FK_Mrg_Module_id FOREIGN KEY (mrg_mod_id) REFERENCES am_Module(mod_id)
 );
 
 CREATE TABLE am_CourseRegistration(
 	crg_year int NOT NULL,
 	crg_crs_id varchar(6) NOT NULL,
 	crg_stu_id int NOT NULL,
+        crg_date_registered DATE,
 	
-	CONSTRAINTS PK_CourseRegistration PRIMARY KEY(crg_year, crg_crs_id, crg_stu_id),
-	CONSTRAINTS FK_Crg_Student_id FOREIGN KEY (crg_stu_id) REFERENCES am_Student(stu_id),
-	CONSTRAINTS FK_Crg_Course_id FOREIGN KEY (crg_crs_id) REFERENCES am_Course(crs_id)
+	CONSTRAINT PK_CourseRegistration PRIMARY KEY(crg_year, crg_crs_id, crg_stu_id),
+	CONSTRAINT FK_Crg_Student_id FOREIGN KEY (crg_stu_id) REFERENCES am_Student(stu_id),
+	CONSTRAINT FK_Crg_Course_id FOREIGN KEY (crg_crs_id) REFERENCES am_Course(crs_id)
 );
 
 CREATE TABLE am_Delivers (
@@ -86,9 +100,9 @@ CREATE TABLE am_Delivers (
 	dev_lec_id int NOT NULL,
 	dev_mod_id varchar(6) NOT NULL,
 	
-	CONSTRAINTS PK_Delivers PRIMARY KEY(dev_semester, dev_lec_id, dev_mod_id),
-	CONSTRAINTS FK_Dev_Lec_id FOREIGN KEY (dev_lec_id) REFERENCES am_Lecture(lec_id),
-	CONSTRAINTS FK_Dev_Mod_id FOREIGN KEY (dev_mod_id) REFERENCES am_Module(mod_id)
+	CONSTRAINT PK_Delivers PRIMARY KEY(dev_semester, dev_lec_id, dev_mod_id),
+	CONSTRAINT FK_Dev_Lec_id FOREIGN KEY (dev_lec_id) REFERENCES am_Lecture(lec_id),
+	CONSTRAINT FK_Dev_Mod_id FOREIGN KEY (dev_mod_id) REFERENCES am_Module(mod_id)
 );
 
 -- The following are Data insertions into the tables to form dummy data.
