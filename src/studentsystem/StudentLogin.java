@@ -150,7 +150,7 @@ public class StudentLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-                   try {
+        try {
             new AdminLogin().setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
