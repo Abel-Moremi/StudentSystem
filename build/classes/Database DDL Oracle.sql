@@ -105,6 +105,10 @@ CREATE TABLE am_Delivers (
 -- Data Entry
 
 
+-- Admin
+INSERT INTO am_Admin
+VALUES (2020, 'Author Fleck', 'A.Fleck@amUni.com', 'asseater');
+
 -- University
 INSERT INTO am_University
 VALUES (1, 'Abel Moremi University', 'Gaborone');
@@ -121,35 +125,35 @@ VALUES ('BSC204', 'Infomation Technology');
 
 -- Module
 INSERT INTO am_Module
-VALUES ('CSI141', 'Intro to programming', 'N/A');
+VALUES ('CSI141', 'Intro to programming', 'N/A', 'BSC208');
 
 INSERT INTO am_Module
-VALUES ('CSI247', 'Data Structures', 'CSI142');
+VALUES ('CSI247', 'Data Structures', 'CSI142', 'BSC230');
 
 INSERT INTO am_Module
-VALUES ('CSI262', 'Database I', 'CSI247');
+VALUES ('CSI262', 'Database I', 'CSI247', 'BSC230');
 
 INSERT INTO am_Module
-VALUES ('CSI323', 'Algorithms', 'CSI247');
+VALUES ('CSI323', 'Algorithms', 'CSI247', 'BSC230');
 
 -- Student
 INSERT INTO am_Student
-VALUES (201503625, 'Abel Moremi', 'Undergraduate');
+VALUES (201503625, 'Abel Moremi', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201603665, 'Dell Keyboard', 'Undergraduate');
+VALUES (201603665, 'Dell Keyboard', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (200602627, 'Donald Trump', 'Undergraduate');
+VALUES (200602627, 'Donald Trump', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201903225, 'Dave Chappell', 'PostGraduate');
+VALUES (201903225, 'Dave Chappell', 'PostGraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201003605, 'Steve Jobs', 'PostGraduate');
+VALUES (201003605, 'Steve Jobs', 'PostGraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (200402447, 'Trevor Noah', 'Undergraduate');
+VALUES (200402447, 'Trevor Noah', 'Undergraduate', '1234');
 
 -- Lecture
 INSERT INTO am_Lecture
@@ -178,13 +182,13 @@ VALUES ('Semester 1', 200203265, 'CSI247');
 
 -- Module Registration
 INSERT INTO am_ModuleRegistration
-VALUES ('Semester 1', 201503625, 'CSI141');
+VALUES ('Semester 1', 201503625, 'CSI141', '2019-03-01');
 
 INSERT INTO am_ModuleRegistration
-VALUES ('Semester 1', 201503625, 'CSI247');
+VALUES ('Semester 1', 201503625, 'CSI247', '2019-03-11');
 
 INSERT INTO am_ModuleRegistration
-VALUES ('Semester 1', 201503625, 'CSI323');
+VALUES ('Semester 1', 201503625, 'CSI323', '2019-05-22');
 
 
 -- Assessment
