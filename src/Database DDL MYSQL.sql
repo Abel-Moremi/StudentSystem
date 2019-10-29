@@ -108,6 +108,10 @@ CREATE TABLE am_Delivers (
 -- Data Entry
 
 
+-- Admin
+INSERT INTO am_Admin
+VALUES (2020, 'Author Fleck', 'A.Fleck@amUni.com', 'asseater');
+
 -- University
 INSERT INTO am_University
 VALUES (1, 'Abel Moremi University', 'Gaborone');
@@ -206,6 +210,7 @@ VALUES (201503625, 'CSI323', 'Final Mark', 60);
 -- Deleting all the tables
 -- For Database Cleaning efforts
 
+DROP TABLE am_Admin;
 DROP TABLE am_Assessment;
 DROP TABLE am_ModuleRegistration;
 DROP TABLE am_Delivers;
