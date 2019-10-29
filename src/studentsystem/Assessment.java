@@ -93,7 +93,7 @@ public class Assessment extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        assBack = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         students = new javax.swing.JComboBox<>();
         modules = new javax.swing.JComboBox<>();
@@ -102,7 +102,7 @@ public class Assessment extends javax.swing.JFrame {
         markField = new javax.swing.JTextField();
         submitGradeButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        logoutButton = new javax.swing.JButton();
+        assLogoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,9 +110,14 @@ public class Assessment extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 204, 204));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        jButton1.setText("back");
+        assBack.setBackground(new java.awt.Color(255, 255, 255));
+        assBack.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        assBack.setText("back");
+        assBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -120,14 +125,14 @@ public class Assessment extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(assBack, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(1284, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(assBack, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
@@ -209,10 +214,15 @@ public class Assessment extends javax.swing.JFrame {
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
-        logoutButton.setBackground(new java.awt.Color(255, 255, 255));
-        logoutButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
-        logoutButton.setForeground(new java.awt.Color(255, 51, 51));
-        logoutButton.setText("logout");
+        assLogoutButton.setBackground(new java.awt.Color(255, 255, 255));
+        assLogoutButton.setFont(new java.awt.Font("Yu Gothic UI", 0, 18)); // NOI18N
+        assLogoutButton.setForeground(new java.awt.Color(255, 51, 51));
+        assLogoutButton.setText("logout");
+        assLogoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assLogoutButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -223,7 +233,7 @@ public class Assessment extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(assLogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(404, 404, 404))
@@ -238,7 +248,7 @@ public class Assessment extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(80, 80, 80))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(assLogoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38))))
         );
 
@@ -304,6 +314,26 @@ public class Assessment extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_modulesActionPerformed
 
+    private void assBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assBackActionPerformed
+        // TODO add your handling code here:
+        try {
+            new AdminDashboard().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(StudentList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         this.setVisible(false);
+    }//GEN-LAST:event_assBackActionPerformed
+
+    private void assLogoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assLogoutButtonActionPerformed
+        // TODO add your handling code here:
+        try {
+            new AdminLogin().setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(StudentList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+    }//GEN-LAST:event_assLogoutButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -345,13 +375,13 @@ public class Assessment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> aType;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton assBack;
+    private javax.swing.JButton assLogoutButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JButton logoutButton;
     private javax.swing.JTextField markField;
     private javax.swing.JComboBox<String> modules;
     private javax.swing.JComboBox<String> students;
