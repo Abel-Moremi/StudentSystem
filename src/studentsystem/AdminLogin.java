@@ -193,8 +193,7 @@ public class AdminLogin extends javax.swing.JFrame {
                      JOptionPane.showMessageDialog(null, "Incorrect Credentials", "infoBox: "+ "Error", JOptionPane.INFORMATION_MESSAGE);
                      email.setText("");
                      password.setText("");
-                     
-                 }
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Incorrect Credentials", "infoBox: "+ "Error", JOptionPane.INFORMATION_MESSAGE);
             Logger.getLogger(StudentLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -202,7 +201,7 @@ public class AdminLogin extends javax.swing.JFrame {
         
         
         try {
-            new AdminDashboard().setVisible(true);
+            //new AdminDashboard().setVisible(true);
             new AdminLogin().setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
