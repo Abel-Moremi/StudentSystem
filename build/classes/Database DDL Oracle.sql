@@ -45,6 +45,7 @@ CREATE TABLE am_Module (
 CREATE TABLE am_Student (
     stu_id int NOT NULL AUTO_INCREMENT,
     stu_name varchar(25),
+    stu_surname varchar(25),
     stu_type varchar(25),
     stu_password varchar(191),
 	
@@ -138,22 +139,23 @@ VALUES ('CSI323', 'Algorithms', 'CSI247', 'BSC230');
 
 -- Student
 INSERT INTO am_Student
-VALUES (201503625, 'Abel Moremi', 'Undergraduate', '1234');
+VALUES (201503625, 'Abel', 'Moremi', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201603665, 'Dell Keyboard', 'Undergraduate', '1234');
+VALUES (201603665, 'Dell' ,'Keyboard', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (200602627, 'Donald Trump', 'Undergraduate', '1234');
+VALUES (200602627, 'Donald', 'Trump', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201903225, 'Dave Chappell', 'PostGraduate', '1234');
+VALUES (201903225, 'Dave', 'Chappell', 'PostGraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201003605, 'Steve Jobs', 'PostGraduate', '1234');
+VALUES (201003605, 'Steve', 'Jobs', 'PostGraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (200402447, 'Trevor Noah', 'Undergraduate', '1234');
+VALUES (200402447, 'Trevor', 'Noah', 'Undergraduate', '1234');
+
 
 -- Lecture
 INSERT INTO am_Lecture

@@ -48,6 +48,7 @@ CREATE TABLE am_Module (
 CREATE TABLE am_Student (
     stu_id int NOT NULL AUTO_INCREMENT,
     stu_name varchar(25),
+    stu_surname varchar(25),
     stu_type varchar(25),
     stu_password varchar(191),
 	
@@ -141,22 +142,22 @@ VALUES ('CSI323', 'Algorithms', 'CSI247', 'BSC230');
 
 -- Student
 INSERT INTO am_Student
-VALUES (201503625, 'Abel Moremi', 'Undergraduate', '1234');
+VALUES (201503625, 'Abel', 'Moremi', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201603665, 'Dell Keyboard', 'Undergraduate', '1234');
+VALUES (201603665, 'Dell' ,'Keyboard', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (200602627, 'Donald Trump', 'Undergraduate', '1234');
+VALUES (200602627, 'Donald', 'Trump', 'Undergraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201903225, 'Dave Chappell', 'PostGraduate', '1234');
+VALUES (201903225, 'Dave', 'Chappell', 'PostGraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (201003605, 'Steve Jobs', 'PostGraduate', '1234');
+VALUES (201003605, 'Steve', 'Jobs', 'PostGraduate', '1234');
 
 INSERT INTO am_Student
-VALUES (200402447, 'Trevor Noah', 'Undergraduate', '1234');
+VALUES (200402447, 'Trevor', 'Noah', 'Undergraduate', '1234');
 
 -- Lecture
 INSERT INTO am_Lecture
@@ -171,10 +172,10 @@ VALUES (200304627, 'Leanardo Davinci');
 
 -- Course Registration
 INSERT INTO am_CourseRegistration
-VALUES (2015, 'BSC208', 201503625);
+VALUES (2015, 'BSC208', 201503625, '2019-03-01');
 
 INSERT INTO am_CourseRegistration
-VALUES (2015, 'BSC230', 201603665);
+VALUES (2015, 'BSC230', 201603665, '2019-03-11');
 
 -- Delivers 
 INSERT INTO am_Delivers
@@ -185,13 +186,13 @@ VALUES ('Semester 1', 200203265, 'CSI247');
 
 -- Module Registration
 INSERT INTO am_ModuleRegistration
-VALUES ('Semester 1', 201503625, 'CSI141');
+VALUES ('Semester 1', 201503625, 'CSI141', '2019-03-01');
 
 INSERT INTO am_ModuleRegistration
-VALUES ('Semester 1', 201503625, 'CSI247');
+VALUES ('Semester 1', 201503625, 'CSI247', '2019-03-11');
 
 INSERT INTO am_ModuleRegistration
-VALUES ('Semester 1', 201503625, 'CSI323');
+VALUES ('Semester 1', 201503625, 'CSI323', '2019-05-22');
 
 
 -- Assessment
