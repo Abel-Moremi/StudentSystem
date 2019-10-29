@@ -151,7 +151,7 @@ public class AdminLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void studentFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentFormActionPerformed
-                try {
+       try {
             new StudentLogin().setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,7 +201,8 @@ public class AdminLogin extends javax.swing.JFrame {
         
         
         try {
-            new AdminDashboard().setVisible(true);
+            //new AdminDashboard().setVisible(true);
+            new AdminLogin().setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
