@@ -32,7 +32,7 @@ public class AdminLogin extends javax.swing.JFrame {
     void createConnection() throws SQLException{
         try {
             Class.forName("com.mysql.jdbc.Driver");
-             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/student_admin", "root","");
             System.out.println("connection successful");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
