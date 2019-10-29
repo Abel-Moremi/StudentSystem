@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/studentsystem/connector.java</file>
             <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/studentsystem/StudentSystem.java</file>
-            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/Database%20DDL.sql</file>
-            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/studentsystem/home.java</file>
-            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/studentsystem/addStudents.java</file>
+            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/studentsystem/ModuleRegistration.java</file>
+            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/studentsystem/Home.java</file>
+            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/Database%20DDL%20Mysql.sql</file>
+            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/studentsystem/Connector.java</file>
+            <file>file:/C:/Users/Zozo/Google%20Drive/Semester%209/CSI481/lab06/StudentSystem/src/studentsystem/Student.java</file>
         </group>
     </open-files>
 </project-private>
