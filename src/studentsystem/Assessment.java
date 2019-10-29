@@ -29,6 +29,7 @@ public class Assessment extends javax.swing.JFrame {
         initComponents();
         createConnection();
         students();
+        setLocationRelativeTo(null);
         
     }
     

@@ -27,6 +27,7 @@ public class AdminLogin extends javax.swing.JFrame {
     public AdminLogin() throws SQLException {
         initComponents();
         createConnection();
+        setLocationRelativeTo(null);
     }
     
     void createConnection() throws SQLException{
@@ -201,7 +202,7 @@ public class AdminLogin extends javax.swing.JFrame {
         
         
         try {
-            //new AdminDashboard().setVisible(true);
+            new AdminDashboard().setVisible(true);
             new AdminLogin().setVisible(true);
         } catch (Exception ex) {
             Logger.getLogger(AdminLogin.class.getName()).log(Level.SEVERE, null, ex);

@@ -33,6 +33,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         createConnection();
         courses();
         students();
+        setLocationRelativeTo(null);
         
     }
     

@@ -28,6 +28,7 @@ public class StudentDashboard extends javax.swing.JFrame {
      */
     public StudentDashboard() {
         initComponents();
+        setLocationRelativeTo(null);
     }
     
     public StudentDashboard(int studentId)throws SQLException {

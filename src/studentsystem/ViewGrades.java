@@ -28,7 +28,8 @@ public class ViewGrades extends javax.swing.JFrame {
     public ViewGrades() throws SQLException {
         initComponents();
         createConnection();
-         showGrades();
+        showGrades();
+        setLocationRelativeTo(null);
     }
     
     public ViewGrades(int studentId) throws SQLException {

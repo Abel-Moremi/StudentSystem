@@ -33,6 +33,7 @@ public class AllStudents extends javax.swing.JFrame {
         initComponents();
         createConnection();
         showStudents();
+        setLocationRelativeTo(null);
     }
     
     public AllStudents(String surname, String course, Date date) {

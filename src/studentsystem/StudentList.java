@@ -29,6 +29,7 @@ public class StudentList extends javax.swing.JFrame {
         initComponents();
         createConnection();
         listStudents();
+        setLocationRelativeTo(null);
     }
     
         void createConnection() throws SQLException{

@@ -27,6 +27,7 @@ public class StudentLogin extends javax.swing.JFrame {
     public StudentLogin() throws SQLException {
         initComponents();
         createConnection();
+        setLocationRelativeTo(null);
     }
     
     void createConnection() throws SQLException{
