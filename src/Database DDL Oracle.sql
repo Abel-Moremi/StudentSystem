@@ -5,19 +5,16 @@
  */
 /**
  * Author:  Zozo
- * Created: Oct 10, 2019
+ * Created: Oct 29, 2019
  */
 
--- Creation and Definition of all needed tables
--- Constraints "Primary and FOREIGN Key" definitions are made as tables are defined
--- Name spacing used to show associations clearly 
 CREATE TABLE am_Admin(
     admin_id int NOT NULL,
     admin_name varchar(25),
     admin_email varchar(25),
     admin_password varchar(25),
 	
-    CONSTRAINT PK_Admin PRIMARY KEY(admin_email)
+    CONSTRAINTS PK_Admin PRIMARY KEY(admin_email)
 );
 
 CREATE TABLE am_University (
@@ -25,14 +22,14 @@ CREATE TABLE am_University (
     uni_name varchar(25),
     uni_city varchar(25),
 	
-    CONSTRAINT PK_University PRIMARY KEY(uni_no)
+    CONSTRAINTS PK_University PRIMARY KEY(uni_no)
 );
 
 CREATE TABLE am_Course (
     crs_id varchar(6) NOT NULL,
     crs_name varchar(25),
 	
-    CONSTRAINT PK_Course PRIMARY KEY(crs_id)
+    CONSTRAINTS PK_Course PRIMARY KEY(crs_id)
 );
 
 CREATE TABLE am_Module (
@@ -41,8 +38,8 @@ CREATE TABLE am_Module (
     mod_pre varchar(6),
     mod_course varchar(6),
 
-    CONSTRAINT PK_Module PRIMARY KEY(mod_id, mod_course),
-    CONSTRAINT FK_Module_Course FOREIGN KEY (mod_course) REFERENCES am_Course(crs_id)
+    CONSTRAINTS PK_Module PRIMARY KEY(mod_id, mod_course),
+    CONSTRAINTS FK_Module_Course FOREIGN KEY (mod_course) REFERENCES am_Course(crs_id)
 );
 
 CREATE TABLE am_Student (
@@ -51,14 +48,14 @@ CREATE TABLE am_Student (
     stu_type varchar(25),
     stu_password varchar(191),
 	
-    CONSTRAINT PK_Student PRIMARY KEY(stu_id)
+    CONSTRAINTS PK_Student PRIMARY KEY(stu_id)
 );
 
 CREATE TABLE am_Lecture (
     lec_id int NOT NULL,
     lec_name varchar(25),
 
-    CONSTRAINT PK_Lecture PRIMARY KEY(lec_id)
+    CONSTRAINTS PK_Lecture PRIMARY KEY(lec_id)
 );
 
 CREATE TABLE am_Assessment (
@@ -67,9 +64,9 @@ CREATE TABLE am_Assessment (
     ass_name varchar(25),
     ass_mak int,
 	
-    CONSTRAINT PK_Assesment PRIMARY KEY(ass_stu_id, ass_mod_id),
-    CONSTRAINT FK_Ass_Student_id FOREIGN KEY (ass_stu_id) REFERENCES am_Student(stu_id),
-    CONSTRAINT FK_Ass_Module_id FOREIGN KEY (ass_mod_id) REFERENCES am_Module(mod_id)
+    CONSTRAINTS PK_Assesment PRIMARY KEY(ass_stu_id, ass_mod_id),
+    CONSTRAINTS FK_Ass_Student_id FOREIGN KEY (ass_stu_id) REFERENCES am_Student(stu_id),
+    CONSTRAINTS FK_Ass_Module_id FOREIGN KEY (ass_mod_id) REFERENCES am_Module(mod_id)
 );
 
 CREATE TABLE am_ModuleRegistration (
@@ -78,9 +75,9 @@ CREATE TABLE am_ModuleRegistration (
     mrg_mod_id varchar(6) NOT NULL,
     mrg_date_registered DATE,
 	
-    CONSTRAINT PK_ModuleRegistration PRIMARY KEY(mrg_semester, mrg_stu_id, mrg_mod_id),
-    CONSTRAINT FK_Mrg_Student_id FOREIGN KEY (mrg_stu_id) REFERENCES am_Student(stu_id),
-    CONSTRAINT FK_Mrg_Module_id FOREIGN KEY (mrg_mod_id) REFERENCES am_Module(mod_id)
+    CONSTRAINTS PK_ModuleRegistration PRIMARY KEY(mrg_semester, mrg_stu_id, mrg_mod_id),
+    CONSTRAINTS FK_Mrg_Student_id FOREIGN KEY (mrg_stu_id) REFERENCES am_Student(stu_id),
+    CONSTRAINTS FK_Mrg_Module_id FOREIGN KEY (mrg_mod_id) REFERENCES am_Module(mod_id)
 );
 
 CREATE TABLE am_CourseRegistration(
@@ -89,9 +86,9 @@ CREATE TABLE am_CourseRegistration(
     crg_stu_id int NOT NULL,
     crg_date_registered DATE,
 	
-    CONSTRAINT PK_CourseRegistration PRIMARY KEY(crg_year, crg_crs_id, crg_stu_id),
-    CONSTRAINT FK_Crg_Student_id FOREIGN KEY (crg_stu_id) REFERENCES am_Student(stu_id),
-    CONSTRAINT FK_Crg_Course_id FOREIGN KEY (crg_crs_id) REFERENCES am_Course(crs_id)
+    CONSTRAINTS PK_CourseRegistration PRIMARY KEY(crg_year, crg_crs_id, crg_stu_id),
+    CONSTRAINTS FK_Crg_Student_id FOREIGN KEY (crg_stu_id) REFERENCES am_Student(stu_id),
+    CONSTRAINTS FK_Crg_Course_id FOREIGN KEY (crg_crs_id) REFERENCES am_Course(crs_id)
 );
 
 CREATE TABLE am_Delivers (
@@ -99,9 +96,9 @@ CREATE TABLE am_Delivers (
     dev_lec_id int NOT NULL,
     dev_mod_id varchar(6) NOT NULL,
 	
-    CONSTRAINT PK_Delivers PRIMARY KEY(dev_semester, dev_lec_id, dev_mod_id),
-    CONSTRAINT FK_Dev_Lec_id FOREIGN KEY (dev_lec_id) REFERENCES am_Lecture(lec_id),
-    CONSTRAINT FK_Dev_Mod_id FOREIGN KEY (dev_mod_id) REFERENCES am_Module(mod_id)
+    CONSTRAINTS PK_Delivers PRIMARY KEY(dev_semester, dev_lec_id, dev_mod_id),
+    CONSTRAINTS FK_Dev_Lec_id FOREIGN KEY (dev_lec_id) REFERENCES am_Lecture(lec_id),
+    CONSTRAINTS FK_Dev_Mod_id FOREIGN KEY (dev_mod_id) REFERENCES am_Module(mod_id)
 );
 
 -- The following are Data insertions into the tables to form dummy data.
@@ -203,5 +200,16 @@ VALUES (201503625, 'CSI262', 'Final Mark', 70);
 INSERT INTO am_Assessment
 VALUES (201503625, 'CSI323', 'Final Mark', 60);
 
+-- Deleting all the tables
+-- For Database Cleaning efforts
 
-
+DROP TABLE am_Admin CASCADE CONSTRAINTS;
+DROP TABLE am_Assessment CASCADE CONSTRAINTS;
+DROP TABLE am_ModuleRegistration CASCADE CONSTRAINTS;
+DROP TABLE am_Delivers CASCADE CONSTRAINTS;
+DROP TABLE am_CourseRegistration CASCADE CONSTRAINTS;
+DROP TABLE am_Lecture CASCADE CONSTRAINTS;
+DROP TABLE am_Student CASCADE CONSTRAINTS;
+DROP TABLE am_Module CASCADE CONSTRAINTS;
+DROP TABLE am_Course CASCADE CONSTRAINTS;
+DROP TABLE am_University CASCADE CONSTRAINTS;
